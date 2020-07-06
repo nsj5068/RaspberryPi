@@ -23,7 +23,7 @@
 7. boot 라는 라벨이 붙혀진 USB드라이브로 잡힘.
 8. boot 파일 안에 다음 파일을 복사
    1) ssh 
-     1-1) 
+     (1)
    2) wpa_supplicant.conf
    
    
