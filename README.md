@@ -9,6 +9,8 @@
 
 ![1](https://user-images.githubusercontent.com/64456822/86572230-9ba8cd80-bfad-11ea-9966-e92c42e2eed8.JPG)
 
+<img src="https://user-images.githubusercontent.com/64456822/86572230-9ba8cd80-bfad-11ea-9966-e92c42e2eed8.JPG" width="500px" height="300px"></img>
+
   1) NOOBS 또한 해당 링크에서 따로 다운 받을 수 있음. 
   2) OS with desktop and recommended software: 그래픽환경과 자주 사용하는 프로그램들을 포함하는 버젼
   3) OS with desktop: 그래픽 환경 지원
@@ -22,8 +24,7 @@
 6. 완료하고, 다시 microSD카드가 들어있는 USB를 뽑았다가 다시 삽입
 7. boot 라는 라벨이 붙혀진 USB드라이브로 잡힘.
 8. boot 파일 안에 다음 파일을 복사
-   1) ssh 
-     (1)
+   1) ssh : 메모장을 킨 후, 아무것도 안 쓴채로 다른 이름으로 저장, ssh 로 저장함.
    2) wpa_supplicant.conf
    
    
