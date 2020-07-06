@@ -24,7 +24,8 @@
 8. boot 파일 안에 다음 파일을 복사
    1) ssh : 메모장을 킨 후, 아무것도 안 쓴채로 다른 이름으로 저장, ssh 로 저장함.
    2) wpa_supplicant.conf
-   
+      * 와이파이를 1개만 사용할 경우 아래 코드에서 network 한 블록만 쓰면 된다. 
+      * 와이파이를 여러개 사용할 경우 맨 위에 오는 network 가 우선 순위를 갖는 다.
    <pre>
    <code>
        ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
