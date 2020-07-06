@@ -14,3 +14,18 @@
   3) OS with desktop: 그래픽 환경 지원
   4) OS Lite : Command 모드만 지원
   
+3. 해당 파일을 microSD 카드에 복제
+4. balenaEtcher-Portable 실행
+  1) Select image 선택 후 Raspbian 다운받은 파일 선택
+  2) Select target은 자동으로 microSD가 들어있는 USB가 선택됨
+5. Flash! 버튼을 누르면 복사시작
+6. 완료하고, 다시 microSD카드가 들어있는 USB를 뽑았다가 다시 삽입
+7. boot 라는 라벨이 붙혀진 USB드라이브로 잡힘.
+8. boot 파일 안에 다음 파일을 복사
+   1)ssh 
+     1-1)
+   2)wpa_supplicant.conf
+   
+   
+  
+  
