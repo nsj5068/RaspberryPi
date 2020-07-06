@@ -25,21 +25,24 @@
    1) ssh : 메모장을 킨 후, 아무것도 안 쓴채로 다른 이름으로 저장, ssh 로 저장함.
    2) wpa_supplicant.conf
    
-      - ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-        update_config=1
-        country=GB
+   <pre>
+   <code>
+       ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+       update_config=1
+       country=GB
         
-        network={
-           ssid="Wi-Fi 이름"
-           psk="Wi-Fi 비번"
-           key_mgmt=WPA-PSK
-        }
-        network={
-           ssid="Wi-Fi2 이름"
-           psk="Wi-Fi2 비번"
-           key_mgmt=WPA-PSK
-        }
- 
+       network={
+          ssid="Wi-Fi 이름"
+          psk="Wi-Fi 비번"
+          key_mgmt=WPA-PSK
+       }
+       network={
+          ssid="Wi-Fi2 이름"
+          psk="Wi-Fi2 비번"
+          key_mgmt=WPA-PSK
+       }
+ </code>
+ </pre>
  
    
   
