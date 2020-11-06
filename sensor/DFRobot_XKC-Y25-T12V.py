@@ -11,10 +11,10 @@ gpio.setup(FLOW, gpio.IN)
 
 try:
     while True:
-        if gpio.input(FLOW) == gpio.HIGH:
+        if gpio.input(FLOW) == gpio.HIGH: #Liquid Detected
             print('1')
         else:
-            print('0')
+            print('0') #Not Liquid Detected
         time.sleep(2)
 
 except KeyboardInterrupt:
