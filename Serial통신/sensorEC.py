@@ -1,3 +1,6 @@
+#아직 개발중인 코드
+#Still under development
+
 import serial
 import RPi.GPIO as gpio
 import Adafruit_DHT as dht
