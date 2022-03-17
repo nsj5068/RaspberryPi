@@ -3,3 +3,5 @@
 [참고링크] : https://www.robotstory.co.kr/london/?vid=244
 
 호환 라즈베리파이 카메라 모듈 : V1/V2/HQ
+
+또는 github를 통해 Picamera2를 사용
