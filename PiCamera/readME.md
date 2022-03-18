@@ -12,7 +12,8 @@
 
 오류1 : https://forums.raspberrypi.com/viewtopic.php?t=326315 \
 오류2 : https://github.com/Motion-Project/motion/issues/1434 \
-오류3 : https://raspberrypi.stackexchange.com/questions/135364/libcamera-stack-does-not-work-with-bullseye
+오류3 : https://raspberrypi.stackexchange.com/questions/135364/libcamera-stack-does-not-work-with-bullseye \
+오류4 : https://forums.raspberrypi.com/viewtopic.php?p=1958297
 
 또는 github를 통해 Picamera2를 사용 \
 [참고링크] : https://github.com/raspberrypi/picamera2 \
