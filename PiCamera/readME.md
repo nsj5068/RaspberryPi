@@ -1,5 +1,8 @@
-# 2021년 후반기 이후의 라즈베리파이 카메라
-## 이제 PiCamear 못씀 libcamera 써야함.
+# 라즈베리 파이 buster 버젼 이후의 Bullseye 버젼 부터 다음 설명을 참고.
+## PiCamera는 Bullseye 버젼에선 호환되지 않는 다. 굳이 쓴다면 레거시 OS를 불러와 사용해야함. 
+## 이제는 libcamera를 이용한 PiCamera2 라이브러리를 써야만 한다.
+
+
 [참고링크] : https://www.robotstory.co.kr/london/?vid=244
 
 호환 라즈베리파이 카메라 모듈 : V1/V2/HQ
