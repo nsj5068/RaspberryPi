@@ -7,8 +7,11 @@
 
 호환 라즈베리파이 카메라 모듈 : V1/V2/HQ
 
+### 대체적으로 ssh를 이용한 putty나 XWindown를 지원하는 MobaXterm도 해당 라이브러리를 사용하면 실행되지 않으니 주의할 것.
+### VNC Viewr를 사용하여 실행할 것.
 
-오류 : https://forums.raspberrypi.com/viewtopic.php?t=326315
+오류1 : https://forums.raspberrypi.com/viewtopic.php?t=326315
+오류2 : https://github.com/Motion-Project/motion/issues/1434
 
 또는 github를 통해 Picamera2를 사용 \
 [참고링크] : https://github.com/raspberrypi/picamera2 \
