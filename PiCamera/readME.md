@@ -4,6 +4,10 @@
 
 호환 라즈베리파이 카메라 모듈 : V1/V2/HQ
 
+HQ Driver Installation : https://www.arducam.com/docs/camera-for-jetson-nano/native-jetson-cameras-imx219-imx477/imx477-how-to-install-the-driver/
+
 또는 github를 통해 Picamera2를 사용
 [참고링크] : https://github.com/raspberrypi/picamera2
 [참고링크] : https://www.raspberrypi.com/news/a-preview-release-of-the-picamera2-library/
+
+
