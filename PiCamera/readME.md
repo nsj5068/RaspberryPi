@@ -5,6 +5,7 @@
 
 # 개같이 오류 열풍... 그냥 옛날 꺼 쓰심 됩니다... 옛날께 더 잘된다고 하네요...
 HQ 참고자료 : https://ichi.pro/ko/raspberry-pi-4eseo-kamela-seoljeong-159628855958751
+참고자료 2 : https://blog.naver.com/no1_devicemart/222499410544
 
 
 [참고링크] : https://www.robotstory.co.kr/london/?vid=244
