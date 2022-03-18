@@ -10,8 +10,9 @@
 ### 대체적으로 ssh를 이용한 putty나 XWindown를 지원하는 MobaXterm도 해당 라이브러리를 사용하면 실행되지 않으니 주의할 것.
 ### VNC Viewr를 사용하여 실행할 것.
 
-오류1 : https://forums.raspberrypi.com/viewtopic.php?t=326315
-오류2 : https://github.com/Motion-Project/motion/issues/1434
+오류1 : https://forums.raspberrypi.com/viewtopic.php?t=326315 \
+오류2 : https://github.com/Motion-Project/motion/issues/1434 \
+오류3 : https://raspberrypi.stackexchange.com/questions/135364/libcamera-stack-does-not-work-with-bullseye
 
 또는 github를 통해 Picamera2를 사용 \
 [참고링크] : https://github.com/raspberrypi/picamera2 \
