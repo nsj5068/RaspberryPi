@@ -3,6 +3,9 @@
 ## 이제는 libcamera를 이용한 PiCamera2 라이브러리를 써야만 한다.
 
 
+# 개같이 오류 열풍... 그냥 옛날 꺼 쓰심 됩니다... 옛날께 더 잘된다고 하네요...
+
+
 [참고링크] : https://www.robotstory.co.kr/london/?vid=244
 
 호환 라즈베리파이 카메라 모듈 : V1/V2/HQ
