@@ -462,6 +462,124 @@ except KeyboardInterrupt:
 gpio.cleanup()
 </code>
 </pre>
-##
 
-##
+
+## 3-5. 스위치 신호를 입력받아 자동차 조종해보기
+
+앞서 코드를 토대로 스위치 입력을 받아 조종해보자.
+
+<pre>
+<code>
+import sys
+import time
+import RPi.GPIO as gpio
+
+SW1 = 5
+SW2 = 6
+SW3 = 13
+SW4 = 19
+
+PWMA = 18
+AIN1 = 22 #A Channel IN
+AIN2 = 27 
+
+PWMB = 23
+BIN1 = 25 #B Channel IN
+BIN2 = 24 
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+
+gpio.setup(SW1, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW2, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW3, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW4, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+
+gpio.setup(PWMB, gpio.OUT)
+gpio.setup(BIN1, gpio.OUT)
+gpio.setup(BIN2, gpio.OUT)
+
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+R_M = gpio.PWM(PWMB, 500)
+R_M.start(0)
+
+def m_G(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_L(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+
+def m_R(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_B(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_Stop():
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(0)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(0)
+    
+
+try:
+    while True:
+          if gpio.input(SW1) == 1:
+             print('Go')
+             m_G(20)
+
+          elif gpio.input(SW2) == 1:
+             print('Right')
+             m_R(20)
+
+          elif gpio.input(SW3) == 1:
+             print('Left')
+             m_L(20)
+
+          elif gpio.input(SW4) == 1:
+             print('Back')
+             m_B(20)
+             
+          else:
+             print('Stop')
+             m_Stop()
+             
+             
+          time.sleep(1)
+          
+except KeyboardInterrupt:
+    pass
+    
+gpio.cleanup()
+</code>
+</pre>
+
+### Chapter 3 끝.
+### [Chapter 4]()
