@@ -8,8 +8,7 @@
 > <code>cat /sys/devices/platform/leds/leds/led1/brightness</code>        
 > 255면 전력 충분, 0이거나 그 아래라면 전력이 부족하다는 소리이다.
 
-[31test.py]()
-
+[31test.py](https://github.com/nsj5068/RaspberryPi/blob/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/Chapter3%20%EC%9E%90%EB%8F%99%EC%B0%A8%EC%9D%98%20%EA%B8%B0%EB%B3%B8%EA%B8%B0%EB%8A%A5%20%EC%9D%B5%ED%9E%88%EA%B8%B0/31test.py)
 
 
 ##
