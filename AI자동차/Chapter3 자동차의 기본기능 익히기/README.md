@@ -248,8 +248,97 @@ sys.exit()
 왼쪽 모터 2개를 하나의 채널로 이용할 수 있게 전기적으로 연결하고,     
 오른쪽 또한 그렇게 전기적으로 이읆으로써, 드라이버 1개만으로도 작동할 수 있게 하였다.       
 
+먼저 왼쪽 모터를 구동하는 코드이다.
 
+<pre>
+<code>
+import sys
+import time
+import RPi.GPIO as gpio
+
+PWMA = 18
+AIN1 = 22 #Analog IN
+AIN2 = 27
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+
+try:
+    while True:
+          gpio.output(AIN1, 0)
+          gpio.output(AIN2, 1)
+          L_M.ChangeDutyCycle(100)
+          time.sleep(1)
+          
+          gpio.output(AIN1, 0)
+          gpio.output(AIN2, 1)
+          L_M.ChangeDutyCycle(0)
+          time.sleep(1)
+except KeyboardInterrupt:
+    pass
+    
+gpio.cleanup()
+</code>
+</pre>
+
+다음은 속도 변경을 하는 코드이다.      
+PWM을 이용하면 쉽게 변경을 할 수 있다.
+
+<pre>
+<code>
+import sys
+import time
+import RPi.GPIO as gpio
+
+PWMA = 18
+AIN1 = 22 #Analog IN
+AIN2 = 27
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+
+try:
+    while True:
+          gpio.output(AIN1, 0)
+          gpio.output(AIN2, 1)
+          L_M.ChangeDutyCycle(10)
+          time.sleep(1)
+          
+          gpio.output(AIN1, 0)
+          gpio.output(AIN2, 1)
+          L_M.ChangeDutyCycle(50)
+          time.sleep(1)
+          
+          gpio.output(AIN1, 0)
+          gpio.output(AIN2, 1)
+          L_M.ChangeDutyCycle(100)
+          time.sleep(1)
+          
+          gpio.output(AIN1, 0)
+          gpio.output(AIN2, 1)
+          L_M.ChangeDutyCycle(0)
+          time.sleep(1)
+except KeyboardInterrupt:
+    pass
+    
+gpio.cleanup()
+</code>
+</pre>
   
+$책에선 10%일때는 소리만 나지 작동하지 않는 다고 써있지만, 모터에 따라서 힘이 다른데다가,&          
+%해당 키트를 사서 작동시 10% 출력이어도 잘 작동되었음.$
 
 ##
 
