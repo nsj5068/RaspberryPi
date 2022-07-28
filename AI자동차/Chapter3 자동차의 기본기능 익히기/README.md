@@ -239,6 +239,10 @@ sys.exit()
 
 ## 3-4. 모터를 구동하여 자동차 움직이기
 
+해당 키트의 PCB 보드에 삽입된 모터 드라이버는 TB6612이다.      
+[사진 자료 출처](https://www.adafruit.com/product/2448)
+<img src="https://user-images.githubusercontent.com/64456822/181492223-5fe637e5-713f-491a-85d7-984ad0efa003.png" width="500px" height="300px"></img>     
+
 
 ##
 
