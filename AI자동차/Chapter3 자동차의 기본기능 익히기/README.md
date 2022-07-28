@@ -581,5 +581,5 @@ gpio.cleanup()
 </code>
 </pre>
 
-### Chapter 3 끝.
-### [Chapter 4]()
+## Chapter 3 끝.
+## [Chapter 4]()
