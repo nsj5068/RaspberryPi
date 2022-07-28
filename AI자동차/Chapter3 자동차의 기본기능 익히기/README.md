@@ -70,13 +70,72 @@ finally:
 그러므로 라즈베리파이의 자체적으로 Pulldown 저항을 달아줘서 인위적으로 1이 아닌 상태는 다 0으로 표현되게 해야한다.      
 (반대로 다른 상황에서 Pulldown 저항뿐만 아니라 Pullup 저항을 사용하기도 한다. 라즈베리파이 자체내부적으로 조정가능하다.)
 
-다음 코드를 보고 스위치의 값을 변경하여 잘 표시되는지 확인해보자.
-
+다음 코드를 보고 스위치를 제어 해보자.
 <pre>
 <code>
+import sys
+import RPi.GPIO as gpio
+import time
 
+SW1 = 5
+SW2 = 6
+SW3 = 13
+SW4 = 19
+
+gpio.setwarnings(False)
+gpio.cleanup()
+gpio.setmode(gpio.BCM)
+
+gpio.setup(SW1, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW2, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW3, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW4, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+
+olditem = [0, 0, 0, 0]
+newitem = [0, 0, 0, 0]
+cnt = [0, 0, 0, 0]
+    
+try:
+    while True:
+          newitem[0] = gpio.input(SW1)
+          if newitem[0] != olditem[0]:
+             olditem[0] = newitem[0]
+             if newitem[0] == 1:
+                cnt[0] = cnt[0] + 1
+                print('SW1 Click', cnt[0], olditem[0])   
+             time.sleep(0.2)
+          
+          newitem[1] = gpio.input(SW2)
+          if newitem[1] != olditem[1]:
+             olditem[1] = newitem[1]
+             if newitem[1] == 1:
+                cnt[1] = cnt[1] + 1
+                print('SW2 Click', cnt[1], olditem[1])   
+             time.sleep(0.2)
+          newitem[2] = gpio.input(SW3)
+          if newitem[2] != olditem[2]:
+             olditem[2] = newitem[2]
+             if newitem[2] == 1:
+                cnt[2] = cnt[2] + 1
+                print('SW3 Click', cnt[2], olditem[2])   
+             time.sleep(0.2)
+          newitem[3] = gpio.input(SW4)
+          if newitem[3] != olditem[3]:
+             olditem[3] = newitem[3]
+             if newitem[3] == 1:
+                cnt[3] = cnt[3] + 1
+                print('SW4 Click', cnt[3], olditem[3])   
+             time.sleep(0.2)
+
+except KeyboardInterrupt:
+    pass
+finally:
+    gpio.cleanup()
+    sys.exit()
 </code>
 </pre>
+~~사족을 붙인다면, 필자가 해당 코드가 조금 길다고 해서 배열과 for문으로 줄여보려고 했으나 실패하였음~~
+~~한동안 코드를 손에 놔서 그런듯... 2022년 7월 28일~~
 
 
 
