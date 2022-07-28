@@ -179,7 +179,7 @@ sys.exit()
 다음 표를 보면 자신이 원하는 음악을 만들 수 있을 것이다.      
 <img src="https://user-images.githubusercontent.com/64456822/181456919-c55864ad-e296-4afa-92e6-731497456e26.png" width="800px" height="500px"></img>
 
-필자는 [이러한 것]()을 만들었다.
+필자는 [이러한 것](https://github.com/nsj5068/RaspberryPi/blob/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/Chapter3%20%EC%9E%90%EB%8F%99%EC%B0%A8%EC%9D%98%20%EA%B8%B0%EB%B3%B8%EA%B8%B0%EB%8A%A5%20%EC%9D%B5%ED%9E%88%EA%B8%B0/BuzzerMusic.py)을 만들었다.
 
 ## 
 
