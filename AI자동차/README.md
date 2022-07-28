@@ -1,4 +1,4 @@
-# [AI 인공지능 자율주행 자동차](https://www.coupang.com/vp/products/6058414354?itemId=11130064847&vendorItemId=78408666110&src=1042503&spec=10304982&addtag=400&ctag=6058414354&lptag=10304982I11130064847&itime=20220728132331&pageType=PRODUCT&pageValue=6058414354&wPcid=16589822119136812045721&wRef=&wTime=20220728132331&redirect=landing&gclid=Cj0KCQjwxIOXBhCrARIsAL1QFCZgOKJTwi_3o4D5OOpok5eNfHhzWWw757BjC5FYWGuXWWOTv9lHWRgaAlx-EALw_wcB&campaignid=12207438463&adgroupid=115720946583&isAddedCart=)
+# [AI 인공지능 자율주행 자동차](http://www.yes24.com/Product/Goods/103290538)
 
 ### 본 파일 및 내용은 해당 책의 정리 및 공부를 위한 파일입니다.
 #### 2022년 7월 28일에 처음 만들어졌습니다. 
