@@ -340,6 +340,128 @@ gpio.cleanup()
 책에선 10%일때는 소리만 나지 작동하지 않는 다고 써있지만, 모터에 따라서 힘이 다른데다가,           
 해당 키트를 사서 작동시 10% 출력이어도 잘 작동되었음.
 
+다음은 방향 바꾸기 코드이다.
+
+<pre>
+<code>
+import sys
+import time
+import RPi.GPIO as gpio
+
+PWMA = 18
+AIN1 = 22 #Analog IN
+AIN2 = 27
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+
+try:
+    while True:
+          gpio.output(AIN1, 0)
+          gpio.output(AIN2, 1)
+          L_M.ChangeDutyCycle(10)
+          time.sleep(1)
+          
+          gpio.output(AIN1, 0)
+          gpio.output(AIN2, 1)
+          L_M.ChangeDutyCycle(50)
+          time.sleep(1)
+          
+          gpio.output(AIN1, 1)
+          gpio.output(AIN2, 0)
+          L_M.ChangeDutyCycle(50)
+          time.sleep(1)
+          
+          gpio.output(AIN1, 1)
+          gpio.output(AIN2, 0)
+          L_M.ChangeDutyCycle(10)
+          time.sleep(1)
+except KeyboardInterrupt:
+    pass
+    
+gpio.cleanup()
+</code>
+</pre>
+
+오른쪽 모터 부분도 추가를 하면 다음과 같은 코드가 된다.
+
+<pre>
+<code>
+import sys
+import time
+import RPi.GPIO as gpio
+
+PWMA = 18
+AIN1 = 22 #A Channel IN
+AIN2 = 27 
+
+PWMB = 23
+BIN1 = 25 #B Channel IN
+BIN2 = 24 
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+gpio.setup(PWMB, gpio.OUT)
+gpio.setup(BIN1, gpio.OUT)
+gpio.setup(BIN2, gpio.OUT)
+
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+R_M = gpio.PWM(PWMB, 500)
+R_M.start(0)
+
+try:
+    while True:
+          #Right
+          gpio.output(AIN1, 0)
+          gpio.output(AIN2, 1)
+          L_M.ChangeDutyCycle(20)
+          gpio.output(BIN1, 1)
+          gpio.output(BIN2, 0)
+          R_M.ChangeDutyCycle(20)
+          time.sleep(1)
+          
+          #Left
+          gpio.output(AIN1, 1)
+          gpio.output(AIN2, 0)
+          L_M.ChangeDutyCycle(20)
+          gpio.output(BIN1, 0)
+          gpio.output(BIN2, 1)
+          R_M.ChangeDutyCycle(20)
+          time.sleep(1)
+          
+          #Go
+          gpio.output(AIN1, 0)
+          gpio.output(AIN2, 1)
+          L_M.ChangeDutyCycle(20)
+          gpio.output(BIN1, 0)
+          gpio.output(BIN2, 1)
+          R_M.ChangeDutyCycle(20)
+          time.sleep(1)
+          
+          #Back
+          gpio.output(AIN1, 1)
+          gpio.output(AIN2, 0)
+          L_M.ChangeDutyCycle(20)
+          gpio.output(BIN1, 1)
+          gpio.output(BIN2, 0)
+          R_M.ChangeDutyCycle(20)
+          time.sleep(1)
+except KeyboardInterrupt:
+    pass
+    
+gpio.cleanup()
+</code>
+</pre>
 ##
 
 ##
