@@ -179,7 +179,63 @@ sys.exit()
 다음 표를 보면 자신이 원하는 음악을 만들 수 있을 것이다.      
 <img src="https://user-images.githubusercontent.com/64456822/181456919-c55864ad-e296-4afa-92e6-731497456e26.png" width="800px" height="500px"></img>
 
-필자는 [이러한 것](https://github.com/nsj5068/RaspberryPi/blob/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/Chapter3%20%EC%9E%90%EB%8F%99%EC%B0%A8%EC%9D%98%20%EA%B8%B0%EB%B3%B8%EA%B8%B0%EB%8A%A5%20%EC%9D%B5%ED%9E%88%EA%B8%B0/BuzzerMusic.py)을 만들었다.
+필자는 [이러한 것](https://github.com/nsj5068/RaspberryPi/blob/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/Chapter3%20%EC%9E%90%EB%8F%99%EC%B0%A8%EC%9D%98%20%EA%B8%B0%EB%B3%B8%EA%B8%B0%EB%8A%A5%20%EC%9D%B5%ED%9E%88%EA%B8%B0/BuzzerMusic.py)을 ~~만들었다.~~ 실은 Github에서 찾았다. 출처는 해당 코드 가장 상단에 위치하고 있다.
+
+본론으로 들어가서, 경적기능은 앞서 설명한 음악을 만드는 것보다는 쉽다.    
+앞서 테스트로 사용한 코드를 가져와서 스위치와 함께 스위치 1번을 누르면 빵빵~하고 울리는 경적을 만들어 보자.
+
+<pre>
+<code>
+import sys
+import RPi.GPIO as gpio
+import time
+
+Buz = 12
+SW1 = 5
+
+gpio.setwarnings(False)
+gpio.cleanup()
+gpio.setmode(gpio.BCM)
+gpio.setup(Buz, gpio.OUT)
+gpio.setup(SW1, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+
+p = gpio.PWM(Buz, 391) # 솔
+p.stop(50)
+
+oldSw = 0
+newSw = 0
+
+try:
+    while True:
+          newSw = gpio.input(SW1)
+          if newSw != oldSw:
+             oldSw = newSw
+             if newSw == 1:
+                p.start(50)
+                p.ChangeFrequency(391)
+                time.sleep(0.2)
+                
+                p.stop()
+                time.sleep(0.1)
+                
+                p.start(50)
+                p.ChangeFrequency(391)
+                time.sleep(0.2)
+                
+                p.stop()
+                time.sleep(0.1)
+                
+             time.sleep(0.2)
+                     
+    
+except KeyboardInterrupt:
+    pass
+
+p.stop()
+gpio.cleanup()
+sys.exit()
+</code>
+</pre>
 
 ## 
 
