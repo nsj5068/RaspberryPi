@@ -177,6 +177,7 @@ sys.exit()
 
 여기서 261은 Hz, 즉 주파수인데, 이 주파수를 활용하여 음계를 구성할 수 있다.
 다음 표를 보면 자신이 원하는 음악을 만들 수 있을 것이다.
+![image](https://user-images.githubusercontent.com/64456822/181456919-c55864ad-e296-4afa-92e6-731497456e26.png)
 
 
 ## 
