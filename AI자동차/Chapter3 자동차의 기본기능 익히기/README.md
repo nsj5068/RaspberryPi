@@ -137,6 +137,50 @@ finally:
 ~~사족을 붙인다면, 필자가 해당 코드가 조금 길다고 해서 배열과 for문으로 줄여보려고 했으나 실패하였음~~      
 ~~한동안 코드를 손에 놔서 그런듯... 2022년 7월 28일~~      
 
+## 3-3. Buzzer로 경적기능 구현하기
 
+Buzzer는 GPIO 12번이다.
+
+<pre>
+<code>
+import sys
+import RPi.GPIO as gpio
+import time
+
+gpio.setwarnings(False)
+gpio.cleanup()
+gpio.setmode(gpio.BCM)
+
+Buz = 12
+
+gpio.setup(Buz, gpio.OUT)
+
+p = gpio.PWM(Buz, 261) # 261Hz
+p.start(50)
+
+try:
+    while True:
+          p.start(50)
+          p.ChangeFrequency(261)
+          time.sleep(1)
+          p.stop()
+          time.sleep(1)        
+    
+except KeyboardInterrupt:
+    pass
+
+p.stop()
+gpio.cleanup()
+sys.exit()
+</code>
+</pre>
+
+여기서 261은 Hz, 즉 주파수인데, 이 주파수를 활용하여 음계를 구성할 수 있다.
+다음 표를 보면 자신이 원하는 음악을 만들 수 있을 것이다.
+
+
+## 
+
+##
 
 ##
