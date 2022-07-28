@@ -8,7 +8,7 @@
 > <code>cat /sys/devices/platform/leds/leds/led1/brightness</code>        
 > 255면 전력 충분, 0이거나 그 아래라면 전력이 부족하다는 소리이다.
 
-
+[31test.py]()
 
 
 
