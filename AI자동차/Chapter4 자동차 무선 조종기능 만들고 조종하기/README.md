@@ -267,13 +267,145 @@ if __name__ == '__main__':
 </code>
 </pre>
 
-#### 결과 화면
+> 결과 화면
 > ![14](https://user-images.githubusercontent.com/64456822/181703429-56aaa144-903a-4493-ba5c-5fb738299316.JPG)       
 > 아래 버튼이 변경된 것을 알 수 있는 데, 바로 단축키 기능이다.       
 > 본래 M1~M7로 버튼을 꾹누르면 단축키를 지정할 수 있다.          
 > ![13](https://user-images.githubusercontent.com/64456822/181703648-ff5e90df-0744-4b03-b465-beabed9c4c23.JPG)
 
+블루투스로 명령을 내리는 법까지 알게 되었으니 저번 Chapter3에서 했던 코드를 가져와 원격으로 조종하는 코드를 만들어 보자.
 
+<pre>
+<code>
+import sys
+import time
+import RPi.GPIO as gpio
+import serial
+import threading
 
+SW1 = 5
+SW2 = 6
+SW3 = 13
+SW4 = 19
 
+PWMA = 18
+AIN1 = 22 #A Channel IN
+AIN2 = 27 
 
+PWMB = 23
+BIN1 = 25 #B Channel IN
+BIN2 = 24 
+
+BLESerial = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=1.0)
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+
+gpio.setup(SW1, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW2, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW3, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW4, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+
+gpio.setup(PWMB, gpio.OUT)
+gpio.setup(BIN1, gpio.OUT)
+gpio.setup(BIN2, gpio.OUT)
+
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+R_M = gpio.PWM(PWMB, 500)
+R_M.start(0)
+
+gData = ""
+
+def serial_decode():
+    global gData
+    while True:
+          data = BLESerial.readline()
+          data = data.decode()
+          gData = data
+
+def m_G(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_L(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+
+def m_R(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_B(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_Stop():
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(0)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(0)
+    
+def main():
+    global gData
+    try:
+        while True:
+           if gData.find("go") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_G(30)
+           elif gData.find("back") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_B(30)
+           elif gData.find("left") >= 0:
+              print("Ok "+ gData)
+              gData = ""
+              m_L(30)
+           elif gData.find("right") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_R(30)
+           elif gData.find("stop") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_Stop()
+           
+           if gpio.input(SW1) == 1 or gpio.input(SW2) == 1 or gpio.input(SW3) == 1 or gpio.input(SW4) == 1:
+              m_Stop()
+              
+    except KeyboardInterrupt:
+        pass
+    
+if __name__ == '__main__':
+         task1 = threading.Thread(target=serial_decode)
+         task1.start()
+         main()
+         BLESerial.close()
+         gpio.cleanup()
+</code>
+</pre>
+
+자동차가 정상작동 되는 것을 확인할 수 있다.
