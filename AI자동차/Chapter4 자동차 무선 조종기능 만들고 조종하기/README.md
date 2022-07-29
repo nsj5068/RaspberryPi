@@ -215,6 +215,7 @@ if __name__ == '__main__':
 sys.exit()으로 Main Thread를 종료시켜 나머지 Sub Thread까지 한꺼번에 종료되는 식으로 만들 수 있다.
 
 ## 4-4. BLE Serial 통신으로 조종하는 자동차 만들기
+## + 4-5. 스위치를 이용한 비상정지 버튼 
 
 앞서 4-2에서 마지막으로 했던 "[문자열 찾기 및 조건문 실행](https://github.com/nsj5068/RaspberryPi/blob/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/Chapter4%20%EC%9E%90%EB%8F%99%EC%B0%A8%20%EB%AC%B4%EC%84%A0%20%EC%A1%B0%EC%A2%85%EA%B8%B0%EB%8A%A5%20%EB%A7%8C%EB%93%A4%EA%B3%A0%20%EC%A1%B0%EC%A2%85%ED%95%98%EA%B8%B0/README.md#%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%B0%BE%EA%B8%B0-%EB%B0%8F-%EC%A1%B0%EA%B1%B4%EB%AC%B8-%EC%8B%A4%ED%96%89)" 에서 코드를 가져와 응용하여,      
 자동차를 조종해보자.
@@ -408,4 +409,207 @@ if __name__ == '__main__':
 </code>
 </pre>
 
-자동차가 정상작동 되는 것을 확인할 수 있다.
+자동차가 정상작동 되는 것을 확인할 수 있다.      
+작동 중 스위치를 누르면 비상정지 되는 것도 확인 가능하다. 
+
+## 4-6. 이동방향 LED로 표시하기
+
+Chapter3에서 했던 LED 작동 코드를 가져와서 쉽게 코딩해보자.       
+이번에 하는 것은 자동차 등처럼 앞으로 갈땐 전조등처럼 앞 2개를 밝히고, 후진할땐 실제로 자동차에 후진기어를 넣었을 때,       
+뒤에 등이 들어오는 것처럼 코딩하는 것이다.
+
+<pre>
+<code>
+import sys
+import time
+import RPi.GPIO as gpio
+import serial
+import threading
+
+SW1 = 5
+SW2 = 6
+SW3 = 13
+SW4 = 19
+
+PWMA = 18
+AIN1 = 22 #A Channel IN
+AIN2 = 27 
+
+PWMB = 23
+BIN1 = 25 #B Channel IN
+BIN2 = 24 
+
+LED1 = 26
+LED2 = 16
+LED3 = 20
+LED4 = 21
+
+BLESerial = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=1.0)
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+
+#Switch
+gpio.setup(SW1, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW2, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW3, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW4, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+
+#Motor Driver Ch1
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+
+#Motor Driver Ch2
+gpio.setup(PWMB, gpio.OUT)
+gpio.setup(BIN1, gpio.OUT)
+gpio.setup(BIN2, gpio.OUT)
+
+#LED
+gpio.setup(LED1, gpio.OUT)
+gpio.setup(LED2, gpio.OUT)
+gpio.setup(LED3, gpio.OUT)
+gpio.setup(LED4, gpio.OUT)
+
+#Motor
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+R_M = gpio.PWM(PWMB, 500)
+R_M.start(0)
+
+gData = ""
+
+def serial_decode():
+    global gData
+    while True:
+          data = BLESerial.readline()
+          data = data.decode()
+          gData = data
+
+def m_G(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+    gpio.output(LED1, gpio.HIGH)
+    gpio.output(LED2, gpio.HIGH)
+    gpio.output(LED3, gpio.LOW)
+    gpio.output(LED4, gpio.LOW)
+    
+def m_L(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+    gpio.output(LED1, gpio.HIGH)
+    gpio.output(LED2, gpio.LOW)
+    gpio.output(LED3, gpio.HIGH)
+    gpio.output(LED4, gpio.LOW)
+
+def m_R(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    gpio.output(LED1, gpio.LOW)
+    gpio.output(LED2, gpio.HIGH)
+    gpio.output(LED3, gpio.LOW)
+    gpio.output(LED4, gpio.HIGH)
+    
+def m_B(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    gpio.output(LED1, gpio.LOW)
+    gpio.output(LED2, gpio.LOW)
+    gpio.output(LED3, gpio.HIGH)
+    gpio.output(LED4, gpio.HIGH)
+    
+def m_Stop():
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(0)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(0)
+    gpio.output(LED1, gpio.LOW)
+    gpio.output(LED2, gpio.LOW)
+    gpio.output(LED3, gpio.LOW)
+    gpio.output(LED4, gpio.LOW)
+    
+def main():
+    global gData
+    try:
+        while True:
+           if gData.find("go") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_G(30)
+           elif gData.find("back") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_B(30)
+           elif gData.find("left") >= 0:
+              print("Ok "+ gData)
+              gData = ""
+              m_L(30)
+           elif gData.find("right") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_R(30)
+           elif gData.find("stop") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_Stop()
+           
+           if gpio.input(SW1) == 1 or gpio.input(SW2) == 1 or gpio.input(SW3) == 1 or gpio.input(SW4) == 1:
+              m_Stop()
+              
+    except KeyboardInterrupt:
+        pass
+    
+if __name__ == '__main__':
+         task1 = threading.Thread(target=serial_decode)
+         task1.start()
+         main()
+         BLESerial.close()
+         gpio.cleanup()
+</code>
+</pre>
+
+LED 또한 정상 작동 되며, 설계한 방향대로 잘 작동되는 것을 확인할 수 있다.
+좀 더 발전된 Version을 만들고 싶다면, 실제 자동차처럼 왼쪽과 오른쪽의 방향지시등을 점멸하는 것처럼 이 키트에도 적용해보도록 해보자.
+
+--------------------------------------------------------------------------------------------------------------------------
+2022년 7월 29일
+
+위의 방향지시등을 구현하기 위해 Thread를 사용하여 구현해보았으나, 작동이 잘 되지 않음.
+concurrent.futures 함수를 도입해볼까 했지만 아직은 이해불가. 
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+<pre>
+<code>
+
+</code>
+</pre>
+
+## 4-7 Buzzer를 이용하여 경적기능 추가하기
+
+이것또한 Chapter3에서 했던 Buzzer 코드를 응용하여 금세 적용시킬수 있다.
+
+<pre>
+<code>
+
+</code>
+</pre>
