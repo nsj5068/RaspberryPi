@@ -221,9 +221,58 @@ sys.exit()으로 Main Thread를 종료시켜 나머지 Sub Thread까지 한꺼�
 
 <pre>
 <code>
+import sys
+import serial
+import threading
 
+BLESerial = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=1.0)
+
+gData = ""
+
+def serial_decode():
+    global gData
+    while True:
+          data = BLESerial.readline()
+          data = data.decode()
+          gData = data
+
+def main():
+    global gData
+    try:
+        while True:
+           if gData.find("go") >= 0:
+              print("Ok " + gData)
+              gData = ""
+           elif gData.find("back") >= 0:
+              print("Ok " + gData)
+              gData = ""
+           elif gData.find("left") >= 0:
+              print("Ok "+ gData)
+              gData = ""
+           elif gData.find("right") >= 0:
+              print("Ok " + gData)
+              gData = ""
+           elif gData.find("stop") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              
+    except KeyboardInterrupt:
+        pass
+     
+if __name__ == '__main__':
+         task1 = threading.Thread(target=serial_decode)
+         task1.start()
+         main()
+         BLESerial.close()
 </code>
 </pre>
+
+#### 결과 화면
+> ![14](https://user-images.githubusercontent.com/64456822/181703429-56aaa144-903a-4493-ba5c-5fb738299316.JPG)       
+> 아래 버튼이 변경된 것을 알 수 있는 데, 바로 단축키 기능이다.       
+> 본래 M1~M7로 버튼을 꾹누르면 단축키를 지정할 수 있다.          
+> ![13](https://user-images.githubusercontent.com/64456822/181703648-ff5e90df-0744-4b03-b465-beabed9c4c23.JPG)
+
 
 
 
