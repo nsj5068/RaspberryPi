@@ -214,7 +214,9 @@ if __name__ == '__main__':
 굳이 신경쓸 정도는 아니지만, 신경이 쓰인다면, Thread를 Daemon Thread로 만들거나,       
 sys.exit()으로 Main Thread를 종료시켜 나머지 Sub Thread까지 한꺼번에 종료되는 식으로 만들 수 있다.
 
+## 4-4. BLE Serial 통신으로 조종하는 자동차 만들기
 
+앞서 4-2에서 마지막으로 했던 "문자열 찾기 및 조건문 실행" 에서
 
 
 
