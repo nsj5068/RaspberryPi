@@ -79,7 +79,7 @@ Python에선 Encode와 Decode를 해줘야 한다.
 이 단원에서는 딱히 설명할 필요는 없고, 굳이 알고 싶은 사람이 있다면,        
 pyserial 이나, Serial Library Document 들을 찾아서 보시길 바란다.
 
-> 한줄씩 받기
+#### 한줄씩 받기
 
 <pre>
 <code>
@@ -104,7 +104,7 @@ BLESerial.close()
 
 
 
-> 문자열로 받기
+#### 문자열로 받기
 
 <pre>
 <code>
@@ -129,7 +129,7 @@ BLESerial.close()
 > ![10](https://user-images.githubusercontent.com/64456822/181692170-2255b900-fe5e-4d8c-90d9-4837c064e491.JPG)
 
 
-> 문자열 찾기 및 조건문 실행
+#### 문자열 찾기 및 조건문 실행
 
 <pre>
 <code>
