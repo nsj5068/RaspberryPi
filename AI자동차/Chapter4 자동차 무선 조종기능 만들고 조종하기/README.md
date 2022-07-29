@@ -99,6 +99,10 @@ except KeyboardInterrupt:
 BLESerial.close()
 </code>
 </pre>
+> 결과화면          
+> ![9](https://user-images.githubusercontent.com/64456822/181691868-d9c320e4-14ed-4abb-ab01-827a4a8d675c.JPG)
+
+
 
 > 문자열로 받기
 
@@ -112,7 +116,7 @@ BLESerial = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=1.0)
 try:
      while True:
            data = BLESerial.readline()
-           data.decode()
+           data = data.decode()
            print(data)
            
 except KeyboardInterrupt:
@@ -121,6 +125,9 @@ except KeyboardInterrupt:
 BLESerial.close()
 </code>
 </pre>
+> 결과화면                 
+> ![10](https://user-images.githubusercontent.com/64456822/181692170-2255b900-fe5e-4d8c-90d9-4837c064e491.JPG)
+
 
 > 문자열 찾기 및 조건문 실행
 
@@ -140,7 +147,7 @@ try:
            elif data.find("back") >= 0:
               print("Ok " + data)
            elif data.find("left") >= 0:
-              print("Ok "+ data)
+              print("Ok " + data)
            elif data.find("right") >= 0:
               print("Ok " + data)
            elif data.find("stop") >= 0:
@@ -153,6 +160,11 @@ except KeyboardInterrupt:
 BLESerial.close()
 </code>
 </pre>
+> 결과화면                        
+> ![12](https://user-images.githubusercontent.com/64456822/181692665-1e0ea17c-cc1f-4b15-9aef-087e13bbfb42.JPG)                
+> ![11](https://user-images.githubusercontent.com/64456822/181692680-aca2dfcb-f02c-419c-8ff6-34b22b02081e.JPG)
+
+
 
 ## 4-3. Thread를 활용하여 통신기능 분리하기
 
