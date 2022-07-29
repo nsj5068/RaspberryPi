@@ -795,3 +795,19 @@ if __name__ == '__main__':
          gpio.cleanup()
 </code>
 </pre>
+
+## 4-8. Raspberry Pi 부팅시 자동으로 코드 실행
+
+부팅시 자동으로 코드를 실행하는 방법은 여러가지가 있다.      
+init.d 디렉토리를 사용하는 방법, systemd를 사용하는 방법, Crontab을 사용하는 방법, .bashrc 파일을 건드리는 법 등 다양한 방법이 있는 데,      
+책에서 설명하는 방법은 다음과 같다.
+
+<code>sudo nano /etc/xdg/lxsession/LXDE-pi/autostart</code>
+
+이 코드를 터미널에 친 다음, autostart 파일의 맨 끝으로 커서를 내린다.     
+맨 마지막줄에, 다음 내용을 추가하고 저장한 뒤, reboot 시키면 자동으로 부팅시 프로그램이 실행되는 것을 확인할 수 있다.     
+(리부트 방법: sudo reboot)
+
+<code>lxterminal -e sudo python3 /home/pi/[your_directory]/47test.py</code>
+
+자동실행을 끝내고 싶다면, 다시 해당 파일을 열고 전에 추가한 내용을 지우고 저장하고 리부트 하면 된다.
