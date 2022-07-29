@@ -76,6 +76,9 @@ Python에선 Encode와 Decode를 해줘야 한다.
 
 ## 4-2. Serial Data 분석하여 명령어 해석하기
 
+이 단원에서는 딱히 설명할 필요는 없고, 굳이 알고 싶은 사람이 있다면,        
+pyserial 이나, Serial Library Document 들을 찾아서 보시길 바란다.
+
 > 한줄씩 받기
 
 <pre>
@@ -108,7 +111,7 @@ BLESerial = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=1.0)
 
 try:
      while True:
-           data = BLESerial.read()
+           data = BLESerial.readline()
            data.decode()
            print(data)
            
@@ -119,6 +122,85 @@ BLESerial.close()
 </code>
 </pre>
 
+> 문자열 찾기 및 조건문 실행
+
+<pre>
+<code>
+import sys
+import serial
+
+BLESerial = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=1.0)
+
+try:
+     while True:
+           data = BLESerial.readline()
+           data = data.decode()
+           if data.find("go") >= 0:
+              print("Ok " + data)
+           elif data.find("back") >= 0:
+              print("Ok " + data)
+           elif data.find("left") >= 0:
+              print("Ok "+ data)
+           elif data.find("right") >= 0:
+              print("Ok " + data)
+           elif data.find("stop") >= 0:
+              print("Ok " + data)
+                  
+           
+except KeyboardInterrupt:
+     pass
+     
+BLESerial.close()
+</code>
+</pre>
+
+## 4-3. Thread를 활용하여 통신기능 분리하기
+
+쉽게 말해 데이터를 받을 때까지 기다리는 단방향 통신에서, 동시에 다른 프로그램을 실행시킬수 있는,       
+단방향 통신이 되는 것이다.       
+~~엄밀히 말해 양방향 통신은 아니다...~~
+
+이제 분리하는 코드를 만들어보자.
+
+<pre>
+<code>
+import sys
+import serial
+import time
+import threading
+
+BLESerial = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=1.0)
+
+gdata = " "
+
+def serial_decode():
+    global gdata
+    while True:
+          data = BLESerial.readline()
+          data = data.decode()
+          gdata = data
+          
+def main():
+    global gdata
+    try:
+        while True:
+              print("data : " + gdata)
+              time.sleep(1.0)
+              
+    except KeyboardInterrupt:
+        pass
+
+if __name__ == '__main__':
+         task1 = threading.Thread(target=serial_decode)
+         task1.start()
+         main()
+         BLESerial.close()
+</code>
+</pre>
+
+중간에 정지시킬 경우 실행되고 있던 Thread가 마저 종료되지 않고 중간에 종료되서 오류가 생길 수 있다.     
+굳이 신경쓸 정도는 아니지만, 신경이 쓰인다면, Thread를 Daemon Thread로 만들거나,       
+sys.exit()으로 Main Thread를 종료시켜 나머지 Sub Thread까지 한꺼번에 종료되는 식으로 만들 수 있다.
 
 
 
