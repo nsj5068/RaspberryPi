@@ -216,7 +216,14 @@ sys.exit()으로 Main Thread를 종료시켜 나머지 Sub Thread까지 한꺼�
 
 ## 4-4. BLE Serial 통신으로 조종하는 자동차 만들기
 
-앞서 4-2에서 마지막으로 했던 "문자열 찾기 및 조건문 실행" 에서
+앞서 4-2에서 마지막으로 했던 "[문자열 찾기 및 조건문 실행](https://github.com/nsj5068/RaspberryPi/blob/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/Chapter4%20%EC%9E%90%EB%8F%99%EC%B0%A8%20%EB%AC%B4%EC%84%A0%20%EC%A1%B0%EC%A2%85%EA%B8%B0%EB%8A%A5%20%EB%A7%8C%EB%93%A4%EA%B3%A0%20%EC%A1%B0%EC%A2%85%ED%95%98%EA%B8%B0/README.md#%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%B0%BE%EA%B8%B0-%EB%B0%8F-%EC%A1%B0%EA%B1%B4%EB%AC%B8-%EC%8B%A4%ED%96%89)" 에서 코드를 가져와 응용하여,      
+자동차를 조종해보자.
+
+<pre>
+<code>
+
+</code>
+</pre>
 
 
 
