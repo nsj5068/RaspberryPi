@@ -610,6 +610,188 @@ concurrent.futures 함수를 도입해볼까 했지만 아직은 이해불가.
 
 <pre>
 <code>
+import sys
+import time
+import RPi.GPIO as gpio
+import serial
+import threading
 
+SW1 = 5
+SW2 = 6
+SW3 = 13
+SW4 = 19
+
+PWMA = 18
+AIN1 = 22 #A Channel IN
+AIN2 = 27 
+
+PWMB = 23
+BIN1 = 25 #B Channel IN
+BIN2 = 24 
+
+LED1 = 26
+LED2 = 16
+LED3 = 20
+LED4 = 21
+
+Buz = 12
+
+BLESerial = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=1.0)
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+
+#Switch
+gpio.setup(SW1, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW2, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW3, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW4, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+
+#Motor Driver Ch1
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+
+#Motor Driver Ch2
+gpio.setup(PWMB, gpio.OUT)
+gpio.setup(BIN1, gpio.OUT)
+gpio.setup(BIN2, gpio.OUT)
+
+#LED
+gpio.setup(LED1, gpio.OUT)
+gpio.setup(LED2, gpio.OUT)
+gpio.setup(LED3, gpio.OUT)
+gpio.setup(LED4, gpio.OUT)
+
+#Buzzer
+gpio.setup(Buz, gpio.OUT)
+
+p = gpio.PWM(Buz, 391) # 솔
+p.stop(50)
+
+#Motor
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+R_M = gpio.PWM(PWMB, 500)
+R_M.start(0)
+
+gData = ""
+
+def serial_decode():
+    global gData
+    while True:
+          data = BLESerial.readline()
+          data = data.decode()
+          gData = data
+
+def m_G(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+    gpio.output(LED1, gpio.HIGH)
+    gpio.output(LED2, gpio.HIGH)
+    gpio.output(LED3, gpio.LOW)
+    gpio.output(LED4, gpio.LOW)
+    
+def m_L(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+    gpio.output(LED1, gpio.HIGH)
+    gpio.output(LED2, gpio.LOW)
+    gpio.output(LED3, gpio.HIGH)
+    gpio.output(LED4, gpio.LOW)
+
+def m_R(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    gpio.output(LED1, gpio.LOW)
+    gpio.output(LED2, gpio.HIGH)
+    gpio.output(LED3, gpio.LOW)
+    gpio.output(LED4, gpio.HIGH)
+    
+def m_B(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    gpio.output(LED1, gpio.LOW)
+    gpio.output(LED2, gpio.LOW)
+    gpio.output(LED3, gpio.HIGH)
+    gpio.output(LED4, gpio.HIGH)
+    
+def m_Stop():
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(0)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(0)
+    gpio.output(LED1, gpio.LOW)
+    gpio.output(LED2, gpio.LOW)
+    gpio.output(LED3, gpio.LOW)
+    gpio.output(LED4, gpio.LOW)
+    p.stop()
+    
+def main():
+    global gData
+    try:
+        while True:
+           if gData.find("go") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_G(30)
+           elif gData.find("back") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_B(30)
+           elif gData.find("left") >= 0:
+              print("Ok "+ gData)
+              gData = ""
+              m_L(30)
+           elif gData.find("right") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_R(30)
+           elif gData.find("stop") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              m_Stop()
+           elif gData.find("bz_on") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              p.start(50)
+              p.ChangeFrequency(391)
+           elif gData.find("bz_off") >= 0:
+              print("Ok " + gData)
+              gData = ""
+              p.stop()
+              p.ChangeFrequency(391)
+           
+           if gpio.input(SW1) == 1 or gpio.input(SW2) == 1 or gpio.input(SW3) == 1 or gpio.input(SW4) == 1:
+              m_Stop()
+              
+              
+    except KeyboardInterrupt:
+        pass
+    
+if __name__ == '__main__':
+         task1 = threading.Thread(target=serial_decode)
+         task1.start()
+         main()
+         BLESerial.close()
+         gpio.cleanup()
 </code>
 </pre>
