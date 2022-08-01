@@ -35,5 +35,9 @@ Cheese 라는 프로그램을 사용해보도록 하자.
 
 <code>sudo apt-get install cheese -y</code>
 
-위의 코드를 터미널창에 쳐 Cheese 를 설치하자.
+위의 코드를 터미널창에 쳐 Cheese 를 설치하자.       
+VNC Viewer를 키고, 왼쪽 위 시작 버튼을 누르고 Cheese를 찾아보자.      
+다음과 같은 화면이 나오면 성공이다.       
+![2](https://user-images.githubusercontent.com/64456822/182074016-656f3169-ad0c-4754-8019-33163c110cc3.JPG)
+
 
