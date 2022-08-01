@@ -111,5 +111,146 @@ if __name__ == '__main__':
 흰색 테이프를 붙여서 선을 그리면 된다는 데, 수중에 흰색 테이프는 없고 검정색 절연 테이프만 가지고 있어서,         
 검정색 테이프를 붙인 뒤, 색을 반전시켜서 사용하거나, 식을 다르게 하여 하면 될것 같다.
 
+또한, 테이프만 바라보게 하기 위해 카메라를 바닥면을 향하게 한다.      
+일단, 저번 코드에서 크기를 다르게 하여 영상을 찍어보자.          
 
+<pre>
+<code>
+import sys
+import cv2
 
+def main():
+    camera = cv2.VideoCapture(-1)
+    camera.set(3,160)
+    camera.set(4,120)
+    
+    while(camera.isOpened()):
+         _, image = camera.read()
+         image = cv2.flip(image, -1)
+         cv2.imshow('camera test' , image)
+         
+         if cv2.waitKey(1) == ord('q'):
+            break
+            
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+</code>
+</pre>
+
+사진을 찍어보고 카메라 각도를 잘 조정해준다.       
+또한, 카메라 위쪽 부분에는 라인 인식에 쓸데없는 데이터가 있을 확률이 높기 때문에,       
+쓸데없는 데이터를 잘라내고, 유효한 데이터만을 얻어보자.       
+
+<pre>
+<code>
+import sys
+import cv2
+import numpy as np
+
+def main():
+    camera = cv2.VideoCapture(-1)
+    camera.set(3,160)
+    camera.set(4,120)
+    
+    while(camera.isOpened()):
+         ret, frame = camera.read()
+         frame = cv2.flip(frame, -1)
+         cv2.imshow('nomal' , frame)
+         
+         crop_img = frame[60:120, 0:160]
+         cv2.imshow('crop', crop_img)
+         
+         if cv2.waitKey(1) == ord('q'):
+            break
+            
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+</code>
+</pre>
+
+깔끔하게 불필요한 것들을 잘라내는 것을 확인할 수 있다.       
+이제 이미지 분석을 위해, 이미지 처리를 해보자.       
+
+<pre>
+<code>
+import sys
+import cv2
+import numpy as np
+
+def main():
+    camera = cv2.VideoCapture(-1)
+    camera.set(3,160)
+    camera.set(4,120)
+    
+    while(camera.isOpened()):
+         ret, frame = camera.read()
+         frame = cv2.flip(frame, -1)
+         cv2.imshow('nomal' , frame)
+         
+         crop_img = frame[60:120, 0:160]
+         
+         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+         
+         blur = cv2.GaussianBlur(gray, (5,5), 0)
+         
+         cv2.imshow('crop+gray+blur', blur)
+         
+         if cv2.waitKey(1) == ord('q'):
+            break
+            
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+</code>
+</pre>
+
+이제 제일 중요한 과정이 남았다. 이미지 인식을 하기 위해, 임계점을 설정하고 그 이상의 값을 최대값으로 바꾸어 검은색 줄을 찾기 쉽게 변환을 해보자.
+
+<pre>
+<code>
+import sys
+import cv2
+import numpy as np
+
+def main():
+    camera = cv2.VideoCapture(-1)
+    camera.set(3,160)
+    camera.set(4,120)
+    
+    while(camera.isOpened()):
+         ret, frame = camera.read()
+         frame = cv2.flip(frame, -1)
+         cv2.imshow('nomal' , frame)
+         
+         crop_img = frame[60:120, 0:160]
+         
+         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+         
+         blur = cv2.GaussianBlur(gray, (5,5), 0)
+         
+         ret, thresh1 = cv2.threshold(blur, 100, 255, cv2.THRESH_BINARY_INV)
+         
+         cv2.imshow('thresh1', thresh1)
+         
+         if cv2.waitKey(1) == ord('q'):
+            break
+            
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+</code>
+</pre>
+
+----------------------------------------------------------------------------------------------------
+
+2022년 8월 1일 여기서 마침
+
+8월 2일날 이어서...
+
+----------------------------------------------------------------------------------------------------
