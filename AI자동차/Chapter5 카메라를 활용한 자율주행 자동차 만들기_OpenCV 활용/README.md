@@ -53,13 +53,13 @@ OpenCV 설치
 <code>pip3 install opencv-python</code>
 
 OpenCV, Tensorflow, keras에 맞는 numpy 버젼으로 설치(원래는 이미 설치되어있음.)
-<code>pip3 install numpy==1.20.3</code>
+<code>pip3 install numpy==1.20.2</code>
 
 필요한 라이브러리 설치
 <pre>
 <code>
   sudo apt-get install libhdf5-dev -y        
-  sudo apt-get install libhdf5-serial-dev -y      
+  #sudo apt-get install libhdf5-serial-dev -y      
   sudo apt-get install libatlas-base-dev -y       
   sudo apt-get install libjasper-dev -y       
   sudo apt-get install libqtgui4 -y                
@@ -70,11 +70,46 @@ OpenCV, Tensorflow, keras에 맞는 numpy 버젼으로 설치(원래는 이미 �
 순서대로 설명하자면,
 
 > libhdf5-dev : scientific data를 저장하기 위한 라이브러리             
-> libhdf5-serial-dev : 위 라이브러리의 더미 패키지                   
+> libhdf5-serial-dev : 위 라이브러리의 더미 패키지 = 다운로드 해봤자 다운이 안된다는 소리이다.                
 > libatlas-base-dev : 선형대수학 소프트웨어                  
 > libjasper-dev : 이미지의 코딩 및 조작을 위한 소프트웨어의 집합(모음)                         
 > libqtgui4 : UI 프로그램으로 유명한 Qt의 GUI 프로그램(현재는 Qt5가 있다.)                          
 > libqt4-test : GUI에 사용되는 위젯들의 모음                
+
+다음은 OpenCV를 이용해 사진을 찍고 180도로 돌려진 사진을 원래대로 돌리자.
+
+<pre>
+<code>
+import sys
+import cv2
+
+def main():
+    camera = cv2.VideoCapture(-1)
+    camera.set(3,640)
+    camera.set(4,480)
+    
+    while(camera.isOpened()):
+         _, image = camera.read()
+         image = cv2.flip(image, -1)
+         cv2.imshow('camera test' , image)
+         
+         if cv2.waitKey(1) == ord('q'):
+            break
+            
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+</code>
+</pre>
+
+조금 전 했던 Cheese와 다르게 프레임이 좋은 걸 알수 있다.
+또한 영상이 반대로 나오던게 정상적으로 나오고 있다.
+
+## 5-3. OpenCV 라인트레이서 자동차 만들기
+
+흰색 테이프를 붙여서 선을 그리면 된다는 데, 수중에 흰색 테이프는 없고 검정색 절연 테이프만 가지고 있어서,         
+검정색 테이프를 붙인 뒤, 색을 반전시켜서 사용하거나, 식을 다르게 하여 하면 될것 같다.
 
 
 
