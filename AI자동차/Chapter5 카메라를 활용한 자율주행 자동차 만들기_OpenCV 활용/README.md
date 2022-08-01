@@ -42,6 +42,28 @@ VNC Viewer를 키고, 왼쪽 위 시작 버튼을 누르고 Cheese를 찾아보�
 
 Burst 버튼 옆 작은 버튼이 카메라 전환 버튼인데, 연결된 카메라가 아무것도 뜨질 않으면, 그 버튼을 화면이 나올때까지 누르면 된다고 한다.
 
-Picamera로 WebCam을 자주 만들던 필자로썬 해당 카메라의 문제인지, 라이브러리의 문제인지는 몰라도, 카메라 해상도가 문제가 많고, 흐리게 보인다.       
+Picamera로 WebCam을 자주 만들던 필자로썬 해당 카메라의 문제인지, 라이브러리의 문제인지는 몰라도, 카메라 해상도가 문제가 많고, 흐리게 보인다.         
 비디오로 전환해서 본다면, Frame의 수가 확연히 적은게 확인될 정도로 엄청 느리다.
+
+카메라가 180도로 뒤집혀져 있을 텐데, 나중에 사진을 찍고 후보정처리로 뒤집으면 되니, 물리적으로 돌리지 않아도 된다.
+
+## 5-2. OpenCV 설치 및 설치 확인
+
+OpenCV 설치      
+<code>pip3 install opencv-python</code>
+
+OpenCV, Tensorflow, keras에 맞는 numpy 버젼으로 설치(원래는 이미 설치되어있음.)
+<code>pip3 install numpy==1.20.3</code>
+
+필요한 라이브러리 설치
+<code>
+  sudo apt-get install libhdf5-dev -y        
+  sudo apt-get install libhdf5-serial-dev -y      
+  sudo apt-get install libatlas-base-dev -y       
+  sudo apt-get install libjasper-dev -y       
+  sudo apt-get install libqtgui4 -y                
+  sudo apt-get install libqt4-test -y       
+</code>
+
+순서대로 설명하자면,
 
