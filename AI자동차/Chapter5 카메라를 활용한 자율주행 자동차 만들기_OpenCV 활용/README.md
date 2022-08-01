@@ -21,16 +21,19 @@
 나중에 VNC Viewer나 Raspberry Pi 재단에서 해결할 테지만, 그 시간을 기다릴 수 는 없으니 빨리 해결하자.     
 이것의 문제는 해상도가 지정되지 않아서 나오는 문제이다. 그러므로 우리는 해상도를 지정해주면 금방 해결된다.
 
-> sudo raspi-config     
-> 2.Display Options
-> 1.Resolution
-> 원하는 해상도로 선택
-> reboot
+> sudo raspi-config       
+> 2.Display Options             
+> 1.Resolution             
+> 원하는 해상도로 선택                 
+> reboot               
 
 이제 화면도 해결되었으니 카메라로 사진을 한번 찍어보자.      
 사진을 찍는 라이브러리는 대표적으로 이 단원에서 사용할 OpenCV, 또 대중적으로 사용하는 Picamera,      
 Bullseye Version 부터 Picamera를 대체하는 libcamera 등등이 있는 데,      
 우린 간단한 테스트를 위해 간단한 라이브러리를 쓰도록 하자.     
-Cheese 라는 라이브러리를 사용해보도록 하자.
+Cheese 라는 프로그램을 사용해보도록 하자.
 
+<code>sudo apt-get install cheese -y</code>
+
+위의 코드를 터미널창에 쳐 Cheese 를 설치하자.
 
