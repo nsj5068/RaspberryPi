@@ -69,12 +69,12 @@ OpenCV, Tensorflow, keras에 맞는 numpy 버젼으로 설치(원래는 이미 �
 
 순서대로 설명하자면,
 
-> libhdf5-dev : scientific data를 저장하기 위한 라이브러리         
-> libhdf5-serial-dev : 위 라이브러리의 더미 패키지        
-> libatlas-base-dev : 선형대수학 소프트웨어
-> libjasper-dev : 이미지의 코딩 및 조작을 위한 소프트웨어의 집합(모음)
-> libqtgui4 : UI 프로그램으로 유명한 Qt의 GUI 프로그램(현재는 Qt5가 있다.)
-> libqt4-test : GUI에 사용되는 위젯들의 모음
+> libhdf5-dev : scientific data를 저장하기 위한 라이브러리             
+> libhdf5-serial-dev : 위 라이브러리의 더미 패키지                   
+> libatlas-base-dev : 선형대수학 소프트웨어                  
+> libjasper-dev : 이미지의 코딩 및 조작을 위한 소프트웨어의 집합(모음)                         
+> libqtgui4 : UI 프로그램으로 유명한 Qt의 GUI 프로그램(현재는 Qt5가 있다.)                          
+> libqt4-test : GUI에 사용되는 위젯들의 모음                
 
 
 
