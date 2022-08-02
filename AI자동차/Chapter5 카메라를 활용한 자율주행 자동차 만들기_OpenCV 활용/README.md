@@ -175,6 +175,10 @@ if __name__ == '__main__':
 </code>
 </pre>
 
+> 결과화면                        
+> ![5](https://user-images.githubusercontent.com/64456822/182276912-3d44d429-0d29-4d4b-a239-db8a0fb5d6fa.JPG)
+
+
 깔끔하게 불필요한 것들을 잘라내는 것을 확인할 수 있다.       
 이제 이미지 분석을 위해, 이미지 처리를 해보자.       
 
