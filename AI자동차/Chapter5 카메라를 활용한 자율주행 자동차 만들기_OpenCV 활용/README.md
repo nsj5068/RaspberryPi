@@ -259,6 +259,51 @@ if __name__ == '__main__':
 > ![4](https://user-images.githubusercontent.com/64456822/182276793-ad17963b-42aa-49f3-95b1-7b7ed4f926c2.JPG)
 
 책 내용과 완전히 반대의 색을 가지고 있어서 반전을 한 뒤에 찍어보도록 하겠다.
+반전 방법에는 여러 가지가 있는 데,                
+아예 이미지를 읽어 올때, 색을 반전시키는 방법,                 
+임계점 값을 조정하여 반대로 불러오는 방법이 있다.          
+
+> 첫번째 방법         
+<pre>
+<code>
+import sys
+import cv2
+import numpy as np
+
+def main():
+    camera = cv2.VideoCapture(-1)
+    camera.set(3,160)
+    camera.set(4,120)
+    
+    while(camera.isOpened()):
+         ret, frame = camera.read()
+         ret = 255 - ret
+         frame = 255 - frame
+         frame = cv2.flip(frame, -1)
+         cv2.imshow('nomal' , frame)
+         
+         crop_img = frame[60:120, 0:160]
+         
+         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+         
+         blur = cv2.GaussianBlur(gray, (5,5), 0)
+         
+         ret, thresh1 = cv2.threshold(blur, 150, 255, cv2.THRESH_BINARY_INV)
+         
+         cv2.imshow('thresh1', thresh1)
+         
+         if cv2.waitKey(1) == ord('q'):
+            break
+            
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+</code>
+</pre>
+
+> 결과화면         
+> ![6](https://user-images.githubusercontent.com/64456822/182278032-69e04afc-a493-42b1-b9cb-f47fcfc6312d.JPG)
 
 
 
