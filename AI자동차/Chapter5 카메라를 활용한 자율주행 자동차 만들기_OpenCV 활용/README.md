@@ -425,9 +425,18 @@ if __name__ == '__main__':
 -------------------------------------------------------------------------------------------------------------
 #### 함수에 대한 고찰
 
-cv2.VideoCapture() :
-.set :
-.flip() :
+> cv2.VideoCapture(index, apiPreference=None)       
+> index : 기기에 연결된 카메라 번호, 간혹 카메라를 못 찾는 경우가 있는 데, -1로 해주면 첫번째로 연결된 카메라를 찾아감.                
+> apiPreference : 선호하는 카메라 처리 방법 지정
+
+> cv2.VideoCapture.set() 
+> 프레임 속성 변경
+
+
+> cv2.flip(image, num)
+> 이미지 상하 또는 좌우 반전, num 자리에 1은 좌우반전, 0은 상하반전
+
+
 cv2.cvtColor() :
 cv2.GaussianBlur() :
 cv2.threshhold() :
