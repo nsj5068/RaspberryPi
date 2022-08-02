@@ -353,4 +353,66 @@ if __name__ == '__main__':
 참고로 임계점 값이 어느 설정에 따랐냐에 따라서 각자 다른데, 노이즈를 없애기 위해서 유동적으로 영상을 확인해가며 조정한거다.              
 또, 그 환경에 따라서도 노이즈가 발생될 수 있으니, 임계점 값을 잘 설정한 후에 진행해야 한다.
 
+이제 무게중심을 잡기 위해, 즉 선을 따라 중간으로 갈 수 있도록 조치를 해주자.
+
+<pre>
+<code>
+import sys
+import cv2
+import numpy as np
+
+def main():
+    camera = cv2.VideoCapture(-1)
+    camera.set(3,160)
+    camera.set(4,120)
+    
+    while(camera.isOpened()):
+         ret, frame = camera.read()
+         frame = cv2.flip(frame, -1)
+         cv2.imshow('nomal' , frame)
+         
+         crop_img = frame[60:120, 0:160]
+         
+         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+         blur = cv2.GaussianBlur(gray, (5,5), 0)
+         ret, thresh1 = cv2.threshold(blur, 100, 255, cv2.THRESH_BINARY)
+         
+         mask = cv2.erode(thresh1, None, iterations=2)
+         mask = cv2.dilate(mask, None, iterations=2)
+         
+         cv2.imshow('mask', mask)
+         
+         contours, hierarchy = cv2.findContours(mask.copy(), 1, cv2.CHAIN_APPROX_NONE)
+         
+         if len(contours) > 0:
+            c = max(contours, key=cv2.contourArea)
+            M = cv2.moments(c)
+            
+            cx = int(M['m10']/M['m00'])
+            cy = int(M['m01']/M['m00'])
+            
+            cv2.line(crop_img, (cx, 0), (cx, 720), (255, 0, 0), 1)
+            cv2.line(crop_img, (0, cy), (1280, cy), (255, 0, 0), 1)
+            
+            cv2.drawContours(crop_img, contours, -1, (0, 255, 0), 1)
+            
+            print(cx)
+         
+         if cv2.waitKey(1) == ord('q'):
+            break
+            
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+</code>
+</pre>
+
+> 결과 화면      
+> 선이 왼쪽에 있을 때            
+> ![9](https://user-images.githubusercontent.com/64456822/182280557-2ea61c4e-d353-4c3c-996d-4be5d8cd3c11.JPG)               
+> 선이 오른쪽에 있을 때                    
+> ![8](https://user-images.githubusercontent.com/64456822/182280599-0806ed0e-0b58-454d-806c-ec969e509656.JPG)
+
+
 
