@@ -434,7 +434,11 @@ if __name__ == '__main__':
 
 
 > cv2.flip(src, flibcode, dst=None)               
-> 이미지 상하 또는 좌우 반전, num 자리에 1은 좌우반전, 0은 상하반전, -1은 좌우 & 상하 반전
+> 이미지 상하 또는 좌우 반전                        
+> flipcode :             
+>    1 좌우반전           
+>    0 상하반전             
+>    -1은 좌우&상하 반전              
 
 
 > cv2.cvtColor()              
