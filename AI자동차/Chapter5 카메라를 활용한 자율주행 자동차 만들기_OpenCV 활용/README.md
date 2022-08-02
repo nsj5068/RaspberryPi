@@ -305,5 +305,49 @@ if __name__ == '__main__':
 > 결과화면         
 > ![6](https://user-images.githubusercontent.com/64456822/182278032-69e04afc-a493-42b1-b9cb-f47fcfc6312d.JPG)
 
+> 두번째 방법          
+<pre>
+<code>
+import sys
+import cv2
+import numpy as np
+
+def main():
+    camera = cv2.VideoCapture(-1)
+    camera.set(3,160)
+    camera.set(4,120)
+    
+    while(camera.isOpened()):
+         ret, frame = camera.read()
+         frame = cv2.flip(frame, -1)
+         cv2.imshow('nomal' , frame)
+         
+         crop_img = frame[60:120, 0:160]
+         
+         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+         
+         blur = cv2.GaussianBlur(gray, (5,5), 0)
+         
+         ret, thresh1 = cv2.threshold(blur, 100, 255, cv2.THRESH_BINARY)
+         
+         cv2.imshow('thresh1', thresh1)
+         
+         if cv2.waitKey(1) == ord('q'):
+            break
+            
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+</code>
+</pre>
+
+> 결과화면        
+> ![7](https://user-images.githubusercontent.com/64456822/182278562-a5350fa6-367d-49d3-9239-c3600383eb0c.JPG)
+
+아무래도 두번째 방법이 제일 편하고 간단하다.
+
+
+
 
 
