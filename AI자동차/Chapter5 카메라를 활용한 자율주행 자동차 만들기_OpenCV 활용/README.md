@@ -490,5 +490,146 @@ if __name__ == '__main__':
 > ![11](https://user-images.githubusercontent.com/64456822/182296799-fd4960d5-bbd3-4443-93af-1a0e4dfcb7b9.JPG)            
 > ![12](https://user-images.githubusercontent.com/64456822/182296828-8e856b6f-7d19-4fb4-9563-9868f6eb1e64.JPG)
 
+위의 코드를 이용하여 실제로 움직이게 해보자.
 
+### 5-3-9.py
+<pre>
+<code>
+import sys
+import time
+import RPi.GPIO as gpio
+import cv2
+import numpy as np
 
+SW1 = 5
+SW2 = 6
+SW3 = 13
+SW4 = 19
+
+PWMA = 18
+AIN1 = 22 #A Channel IN
+AIN2 = 27 
+
+PWMB = 23
+BIN1 = 25 #B Channel IN
+BIN2 = 24 
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+
+gpio.setup(SW1, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW2, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW3, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+gpio.setup(SW4, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+
+gpio.setup(PWMB, gpio.OUT)
+gpio.setup(BIN1, gpio.OUT)
+gpio.setup(BIN2, gpio.OUT)
+
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+R_M = gpio.PWM(PWMB, 500)
+R_M.start(0)
+
+def m_G(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_L(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+
+def m_R(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_B(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_Stop():
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(0)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(0)
+    
+def main():
+    camera = cv2.VideoCapture(0)
+    camera.set(3,160)
+    camera.set(4,120)
+    
+    while(camera.isOpened()):
+         ret, frame = camera.read()
+         frame = cv2.flip(frame, -1)
+         cv2.imshow('nomal' , frame)
+         
+         crop_img = frame[60:120, 0:160]
+         
+         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+         blur = cv2.GaussianBlur(gray, (5,5), 0)
+         ret, thresh1 = cv2.threshold(blur, 100, 255, cv2.THRESH_BINARY)
+         
+         mask = cv2.erode(thresh1, None, iterations=2)
+         mask = cv2.dilate(mask, None, iterations=2)
+         
+         cv2.imshow('mask', mask)
+         
+         contours, hierarchy = cv2.findContours(mask.copy(), 1, cv2.CHAIN_APPROX_NONE)
+         
+         if len(contours) > 0:
+            c = max(contours, key=cv2.contourArea)
+            M = cv2.moments(c)
+            
+            cx = int(M['m10']/M['m00'])
+            cy = int(M['m01']/M['m00'])
+            
+            if cx >= 95 and cx <= 125:
+               print('Turn Left')
+               m_L(15)
+            elif cx >=39 and cx <= 65:
+               print('Turn Right')
+               m_R(15)
+            else:
+               print('go')
+               m_G(15)
+         
+         if cv2.waitKey(1) == ord('q'):
+            break
+            
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+   gpio.cleanup()
+
+</code>
+</pre>
+
+선을 잘 따라가며 작동하는 것을 확인할 수 있다.             
+허나, 급커브 구간과, 우회전 구간에서는 잘못 판단하여 그 자리에서 우회전 좌회전을 반복하며 더 나아가지 못하고 멈추었다.                 
+아직까지는 주행구간에서의 차선 변경 정도만큼에 밖에 못하는 것 같다.
+
+## Chapter 5 끝
+## [Chapter 6]()
