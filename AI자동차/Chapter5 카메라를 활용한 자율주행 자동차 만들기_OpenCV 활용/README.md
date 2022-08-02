@@ -350,4 +350,7 @@ if __name__ == '__main__':
 이번 작업에서 다뤄졌던 함수에 대한 설명은 [여기](https://opencv-python.readthedocs.io/en/latest/doc/09.imageThresholding/imageThresholding.html)에                
 잘 정리되어 있으니 참고 바란다.
 
+참고로 임계점 값이 어느 설정에 따랐냐에 따라서 각자 다른데, 노이즈를 없애기 위해서 유동적으로 영상을 확인해가며 조정한거다.              
+또, 그 환경에 따라서도 노이즈가 발생될 수 있으니, 임계점 값을 잘 설정한 후에 진행해야 한다.
+
 
