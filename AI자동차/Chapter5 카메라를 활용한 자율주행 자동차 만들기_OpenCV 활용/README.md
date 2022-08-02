@@ -126,7 +126,7 @@ import sys
 import cv2
 
 def main():
-    camera = cv2.VideoCapture(-1)
+    camera = cv2.VideoCapture(0)
     camera.set(3,160)
     camera.set(4,120)
     
@@ -157,7 +157,7 @@ import cv2
 import numpy as np
 
 def main():
-    camera = cv2.VideoCapture(-1)
+    camera = cv2.VideoCapture(0)
     camera.set(3,160)
     camera.set(4,120)
     
@@ -194,7 +194,7 @@ import cv2
 import numpy as np
 
 def main():
-    camera = cv2.VideoCapture(-1)
+    camera = cv2.VideoCapture(0)
     camera.set(3,160)
     camera.set(4,120)
     
@@ -231,7 +231,7 @@ import cv2
 import numpy as np
 
 def main():
-    camera = cv2.VideoCapture(-1)
+    camera = cv2.VideoCapture(0)
     camera.set(3,160)
     camera.set(4,120)
     
@@ -277,7 +277,7 @@ import cv2
 import numpy as np
 
 def main():
-    camera = cv2.VideoCapture(-1)
+    camera = cv2.VideoCapture(0)
     camera.set(3,160)
     camera.set(4,120)
     
@@ -320,7 +320,7 @@ import cv2
 import numpy as np
 
 def main():
-    camera = cv2.VideoCapture(-1)
+    camera = cv2.VideoCapture(0)
     camera.set(3,160)
     camera.set(4,120)
     
@@ -370,7 +370,7 @@ import cv2
 import numpy as np
 
 def main():
-    camera = cv2.VideoCapture(-1)
+    camera = cv2.VideoCapture(0)
     camera.set(3,160)
     camera.set(4,120)
     
@@ -434,7 +434,61 @@ if __name__ == '__main__':
 ### 5-3-8.py
 <pre>
 <code>
+import sys
+import cv2
+import numpy as np
 
+def main():
+    camera = cv2.VideoCapture(0)
+    camera.set(3,160)
+    camera.set(4,120)
+    
+    while(camera.isOpened()):
+         ret, frame = camera.read()
+         frame = cv2.flip(frame, -1)
+         cv2.imshow('nomal' , frame)
+         
+         crop_img = frame[60:120, 0:160]
+         
+         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+         blur = cv2.GaussianBlur(gray, (5,5), 0)
+         ret, thresh1 = cv2.threshold(blur, 100, 255, cv2.THRESH_BINARY)
+         
+         mask = cv2.erode(thresh1, None, iterations=2)
+         mask = cv2.dilate(mask, None, iterations=2)
+         
+         cv2.imshow('mask', mask)
+         
+         contours, hierarchy = cv2.findContours(mask.copy(), 1, cv2.CHAIN_APPROX_NONE)
+         
+         if len(contours) > 0:
+            c = max(contours, key=cv2.contourArea)
+            M = cv2.moments(c)
+            
+            cx = int(M['m10']/M['m00'])
+            cy = int(M['m01']/M['m00'])
+            
+            if cx >= 95 and cx <= 125:
+               print('Turn Left')
+            elif cx >=39 and cx <= 65:
+               print('Turn Right')
+            else:
+               print('go')
+         
+         if cv2.waitKey(1) == ord('q'):
+            break
+            
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
 </code>
 </pre>
+
+> 결과화면                
+> ![10](https://user-images.githubusercontent.com/64456822/182296786-575814f0-de89-4874-b405-91f668179ea7.JPG)             
+> ![11](https://user-images.githubusercontent.com/64456822/182296799-fd4960d5-bbd3-4443-93af-1a0e4dfcb7b9.JPG)            
+> ![12](https://user-images.githubusercontent.com/64456822/182296828-8e856b6f-7d19-4fb4-9563-9868f6eb1e64.JPG)
+
+
 
