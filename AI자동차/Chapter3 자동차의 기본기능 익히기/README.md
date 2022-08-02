@@ -598,4 +598,4 @@ gpio.cleanup()
 </pre>
 
 ## Chapter 3 끝.
-## [Chapter 4]()
+## [Chapter 4](https://github.com/nsj5068/RaspberryPi/tree/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/Chapter4%20%EC%9E%90%EB%8F%99%EC%B0%A8%20%EB%AC%B4%EC%84%A0%20%EC%A1%B0%EC%A2%85%EA%B8%B0%EB%8A%A5%20%EB%A7%8C%EB%93%A4%EA%B3%A0%20%EC%A1%B0%EC%A2%85%ED%95%98%EA%B8%B0#chapter4-%EC%9E%90%EB%8F%99%EC%B0%A8-%EB%AC%B4%EC%84%A0-%EC%A1%B0%EC%A2%85%EA%B8%B0%EB%8A%A5-%EB%A7%8C%EB%93%A4%EA%B3%A0-%EC%A1%B0%EC%A2%85%ED%95%98%EA%B8%B0)
