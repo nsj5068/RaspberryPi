@@ -639,6 +639,7 @@ Join() 함수로 첫번째 Thread가 종료될 때까지 기다려야 하고, �
 
 이것또한 Chapter3에서 했던 Buzzer 코드를 응용하여 금세 적용시킬수 있다.
 
+### 4-7-1.py
 <pre>
 <code>
 import sys
