@@ -449,13 +449,36 @@ if __name__ == '__main__':
 > cv2.COLOR_BGR2LAB : 밝기를 강조, Green을 Magneta로, Blue를 Yellow로 반전                                                  
 
 
-cv2.GaussianBlur() :
-cv2.threshhold() :
-cv2.erode :
-cv2.dilate :
-cv2.findContours() :
-cv2.contourArea : 
-cv2.drawContours():
+> cv2.GaussianBlur()               
+> 이미지에 블러링을 할때 사용                    
+
+
+> cv2.threshold()              
+> 이미지 임계처리할 때 사용               
+> type 별 결과            
+> ![1](https://user-images.githubusercontent.com/64456822/182358367-233393fd-8da3-497f-b39e-1eabc0bd2bb2.JPG)
+
+[그림 출처](https://opencv-python.readthedocs.io/en/latest/doc/09.imageThresholding/imageThresholding.html)
+
+
+> cv2.erode               
+> 침식   
+> 객체 크기 감소      
+
+
+> cv2.dilate                   
+> 팽창
+> 객체 크기 증가
+
+
+> cv2.findContours()        
+> 윤곽선 검출      
+
+> cv2.contourArea               
+> 윤곽선 면적 계산                
+
+> cv2.drawContours()                
+> Image에 윤곽선을 그린 결과
 
 -------------------------------------------------------------------------------------------------------------
 
