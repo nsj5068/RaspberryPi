@@ -347,7 +347,7 @@ if __name__ == '__main__':
 
 아무래도 두번째 방법이 제일 편하고 간단하다.
 
-
-
+이번 작업에서 다뤄졌던 함수에 대한 설명은 [여기](https://opencv-python.readthedocs.io/en/latest/doc/09.imageThresholding/imageThresholding.html)에                
+잘 정리되어 있으니 참고 바란다.
 
 
