@@ -52,7 +52,7 @@ Picamera로 WebCam을 자주 만들던 필자로썬 해당 카메라의 문제�
 OpenCV 설치      
 <code>pip3 install opencv-python</code>
 
-OpenCV, Tensorflow, keras에 맞는 numpy 버젼으로 설치(원래는 이미 설치되어있음.)
+OpenCV, Tensorflow, keras에 맞는 numpy 버젼으로 설치(원래는 이미 설치되어있음.)             
 <code>pip3 install numpy==1.20.2</code>
 
 필요한 라이브러리 설치
@@ -249,6 +249,9 @@ if __name__ == '__main__':
    main()
 </code>
 </pre>
+
+> 결과화면                 
+> ![4](https://user-images.githubusercontent.com/64456822/182276793-ad17963b-42aa-49f3-95b1-7b7ed4f926c2.JPG)
 
 책 내용과 완전히 반대의 색을 가지고 있어서 반전을 한 뒤에 찍어보도록 하겠다.
 
