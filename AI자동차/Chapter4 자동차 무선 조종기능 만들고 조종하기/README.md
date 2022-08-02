@@ -833,3 +833,6 @@ init.d 디렉토리를 사용하는 방법, systemd를 사용하는 방법, Cron
 <code>lxterminal -e sudo python3 /home/pi/[your_directory]/47test.py</code>
 
 자동실행을 끝내고 싶다면, 다시 해당 파일을 열고 전에 추가한 내용을 지우고 저장하고 리부트 하면 된다.
+
+## Chapter 4 끝.
+## [Chapter 5](https://github.com/nsj5068/RaspberryPi/tree/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/Chapter5%20%EC%B9%B4%EB%A9%94%EB%9D%BC%EB%A5%BC%20%ED%99%9C%EC%9A%A9%ED%95%9C%20%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89%20%EC%9E%90%EB%8F%99%EC%B0%A8%20%EB%A7%8C%EB%93%A4%EA%B8%B0_OpenCV%20%ED%99%9C%EC%9A%A9#chapter-5-%EC%B9%B4%EB%A9%94%EB%9D%BC%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89-%EC%9E%90%EB%8F%99%EC%B0%A8-%EB%A7%8C%EB%93%A4%EA%B8%B0_opencv-%ED%99%9C%EC%9A%A9)
