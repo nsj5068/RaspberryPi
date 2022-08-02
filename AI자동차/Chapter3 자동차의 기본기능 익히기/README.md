@@ -11,6 +11,8 @@
 다음 코드는 LED가 잘 작동되는 지 확인하고, 문제없이 잘 작동되는 지 확인한 코드이다.     
 $책에 나온 코드와는 조금 다르고 응용하여 만든 예제 코드임$
 
+### 3-1-1.py
+
 <pre>
 <code>
 import RPi.GPIO as gpio
@@ -71,6 +73,8 @@ finally:
 (반대로 다른 상황에서 Pulldown 저항뿐만 아니라 Pullup 저항을 사용하기도 한다. 라즈베리파이 자체내부적으로 조정가능하다.)
 
 다음 코드를 보고 스위치를 제어 해보자.
+
+### 3-2-1.py
 <pre>
 <code>
 import sys
@@ -141,6 +145,7 @@ finally:
 
 Buzzer는 GPIO 12번이다.
 
+### 3-3-1.py
 <pre>
 <code>
 import sys
@@ -184,6 +189,7 @@ sys.exit()
 본론으로 들어가서, 경적기능은 앞서 설명한 음악을 만드는 것보다는 쉽다.    
 앞서 테스트로 사용한 코드를 가져와서 스위치와 함께 스위치 1번을 누르면 빵빵~하고 울리는 경적을 만들어 보자.
 
+### 3-3-2.py
 <pre>
 <code>
 import sys
@@ -250,6 +256,7 @@ sys.exit()
 
 먼저 왼쪽 모터를 구동하는 코드이다.
 
+### 3-4-1.py
 <pre>
 <code>
 import sys
@@ -290,6 +297,7 @@ gpio.cleanup()
 다음은 속도 변경을 하는 코드이다.      
 PWM을 이용하면 쉽게 변경을 할 수 있다.
 
+### 3-4-2.py
 <pre>
 <code>
 import sys
@@ -342,6 +350,7 @@ gpio.cleanup()
 
 다음은 방향 바꾸기 코드이다.
 
+### 3-4-3.py
 <pre>
 <code>
 import sys
@@ -391,6 +400,7 @@ gpio.cleanup()
 
 오른쪽 모터 부분도 추가를 하면 다음과 같은 코드가 된다.
 
+### 3-4-4.py
 <pre>
 <code>
 import sys
@@ -468,6 +478,7 @@ gpio.cleanup()
 
 앞서 코드를 토대로 스위치 입력을 받아 조종해보자.
 
+### 3-5-1.py
 <pre>
 <code>
 import sys
