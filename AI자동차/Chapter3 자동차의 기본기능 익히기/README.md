@@ -116,6 +116,7 @@ try:
                 cnt[1] = cnt[1] + 1
                 print('SW2 Click', cnt[1], olditem[1])   
              time.sleep(0.2)
+             
           newitem[2] = gpio.input(SW3)
           if newitem[2] != olditem[2]:
              olditem[2] = newitem[2]
@@ -123,6 +124,7 @@ try:
                 cnt[2] = cnt[2] + 1
                 print('SW3 Click', cnt[2], olditem[2])   
              time.sleep(0.2)
+             
           newitem[3] = gpio.input(SW4)
           if newitem[3] != olditem[3]:
              olditem[3] = newitem[3]
