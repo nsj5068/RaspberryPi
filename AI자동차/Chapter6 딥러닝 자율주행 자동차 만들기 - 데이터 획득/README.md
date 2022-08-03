@@ -323,3 +323,78 @@ if __name__ == '__main__':
 
 이런식으로 저장된다.
 
+## 6-4. 조종기능을 추가하여 실제 데이터 학습하기
+
+조종기능을 추가하기 전 메세지를 먼저 만든다.
+
+### 6-4-1.py
+<pre>
+<code>
+import sys
+import cv2
+import RPi.GPIO as gpio
+import time
+
+def main():
+    cam = cv2.VideoCapture(-1)
+    cam.set(3, 640)
+    cam.set(4, 480)
+    
+    filepath = "/home/pi/AIAutomachine/Pic/test"
+    i = 0
+    carState = "stop"
+    
+    while(cam.isOpened()):
+        keyValue = cv2.waitKey(10)
+        #print(str(keyValue))
+        
+        if keyValue == ord('q'):
+           break
+        elif keyValue == 82:
+           print("up")
+           carState = "up"
+        elif keyValue == 84:
+           print("down")
+           carState = "down"
+        elif keyValue == 81:
+           print("left")
+           carState = "left"
+        elif keyValue == 83:
+           print("right")
+           carState = "right"
+           
+           
+        _, image = cam.read()
+        image = cv2.flip(image, -1)
+        cv2.imshow('Original', image)
+        
+        height, _, _ = image.shape
+        save_image = image[int(height/2):,:,:]
+        save_image = cv2.cvtColor(save_image, cv2.COLOR_BGR2YUV)
+        save_image = cv2.GaussianBlur(save_image, (3,3), 0)
+        save_image = cv2.resize(save_image, (200, 66))
+        cv2.imshow('Save', save_image)
+        
+        if carState == "left":
+           print("L")
+        elif carState == "right":
+           print("R")
+        elif carState == "go":
+           print("G")
+        
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+   gpio.cleanup()
+</code>
+</pre>
+
+인공지능이 학습하기 위해 사진을 저장한다.
+
+### 6-4-2.py
+<pre>
+<code>
+
+</code>
+</pre>
