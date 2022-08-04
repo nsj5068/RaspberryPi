@@ -17,3 +17,24 @@ NVIDIA가 만든 모델 답게 런타임 유형을 GPU로 바꾸어야 한다.
 > !pip install keras==2.2.5                 
 > !pip install h5py==2.10.0                        
 
+설정을 다 한 뒤 다음 코드를 실행한다.          
+
+## 7-3-1.py
+<pre>
+<code>
+
+</code>
+</pre>
+
+
+import tensorflow.keras 에서 문제가 생기는 데 다음 링크를 타고 보면 문제의 원인을 알 수 있다.
+
+[오류](https://stackoverflow.com/questions/71000250/import-tensorflow-keras-could-not-be-resolved-after-upgrading-to-tensorflow-2)                
+
+
+
+
+
+
+
+
