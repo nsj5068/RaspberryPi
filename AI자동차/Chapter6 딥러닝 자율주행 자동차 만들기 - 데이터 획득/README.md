@@ -663,7 +663,8 @@ if __name__ == '__main__':
 > 그리고 VNC Viewer로 드래그앤 드래그로 USB 파일안에 집어넣으면 된다.
 
 
-
+## Chapter 6 끝
+## [Chapter 7]()
 
 
 
