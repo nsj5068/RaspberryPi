@@ -652,15 +652,15 @@ if __name__ == '__main__':
 이제 파일을 본 컴퓨터에 가져오기만 하면 된다.          
 가져오는 방법에는 다양한 방법이 있다.        
 
-FTP나 SFTP를 이용하여 가져오는 방법 :           
-이 경우 MobaXterm의 FTP나, FileZila 프로그램을 사용하는 방법이다.       
-VNC Viewer도 마찬가지이다.
+> FTP나 SFTP를 이용하여 가져오는 방법 :           
+> 이 경우 MobaXterm의 FTP나, FileZila 프로그램을 사용하는 방법이다.       
+> VNC Viewer도 마찬가지이다.
 
-물리적 접근으로 가져오는 방법 :               
-일반인 입장에서 가장 간단한 방법이라고 생각된다.           
-**Just Use USB**             
-Raspberry Pi의 USB 단자에 해당 압축파일이 들어갈만한 USB를 가져와 끼운다.                
-그리고 VNC Viewer로 드래그앤 드래그로 USB 파일안에 집어넣으면 된다.
+> 물리적 접근으로 가져오는 방법 :               
+> 일반인 입장에서 가장 간단한 방법이라고 생각된다.           
+> **Just Use USB**             
+> Raspberry Pi의 USB 단자에 해당 압축파일이 들어갈만한 USB를 가져와 끼운다.                
+> 그리고 VNC Viewer로 드래그앤 드래그로 USB 파일안에 집어넣으면 된다.
 
 
 
