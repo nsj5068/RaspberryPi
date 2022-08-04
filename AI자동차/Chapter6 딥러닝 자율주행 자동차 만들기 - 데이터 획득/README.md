@@ -632,3 +632,16 @@ if __name__ == '__main__':
 
 <code>zip -r [압축된 폴더 이름].zip [압축할 폴더명]</code>
 
+가끔 가다 zip이 설치되어 있지 않은 사람들이 있는 데,       
+특히 다음과 같은 오류를 마주하게 된다.           
+
+> -bash: zip: command not found
+
+다음 코드를 실행해서 zip을 설치하고 다시 위의 코드를 실행하여 파일을 압축하자.              
+굳이 zip 아니어도 다른 압축 방식이 있지만, 일단 제일 간단하고 편한 zip으로 하였다.
+
+<code>sudo apt-get install zip unzip</code>
+
+
+
+
