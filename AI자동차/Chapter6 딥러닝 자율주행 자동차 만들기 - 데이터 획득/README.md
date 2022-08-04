@@ -642,6 +642,12 @@ if __name__ == '__main__':
 
 <code>sudo apt-get install zip unzip</code>
 
+> 결과 화면                    
+> ![5](https://user-images.githubusercontent.com/64456822/182830898-4deb6913-799b-4038-a358-af3cc0ef3312.JPG)                    
+> ![6](https://user-images.githubusercontent.com/64456822/182830921-c612b3dc-e062-44ee-9b77-045d8cada481.JPG)
+
+
+
 
 
 
