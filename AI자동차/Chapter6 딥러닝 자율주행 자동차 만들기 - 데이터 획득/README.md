@@ -465,3 +465,154 @@ if __name__ == '__main__':
 
 각각 45, 135, 90 이라고 표현된 이유는 카메라를 기준으로 왼쪽으로 갈때는 45도, 오른쪽으로 갈때는 135도, 직진일때는 90도 라고 표시했다고 한다.
 
+이제 작게라도 트랙을 만들자.        
+![2](https://user-images.githubusercontent.com/64456822/182797637-67a971c9-c4cd-46f8-bc0b-08d17731c6de.JPG)
+
+검은색 절연 테이프로 작게라도 만들었다.
+
+이제 자동차를 움직이는 기능을 넣어 데이터를 획득해보자.
+
+### 6-4-3.py
+<pre>
+<code>
+import sys
+import cv2
+import RPi.GPIO as gpio
+import time
+
+PWMA = 18
+AIN1 = 22 #A Channel IN
+AIN2 = 27 
+
+PWMB = 23
+BIN1 = 25 #B Channel IN
+BIN2 = 24 
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+
+gpio.setup(PWMB, gpio.OUT)
+gpio.setup(BIN1, gpio.OUT)
+gpio.setup(BIN2, gpio.OUT)
+
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+R_M = gpio.PWM(PWMB, 500)
+R_M.start(0)
+
+speedSet = 20
+
+def m_G(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_L(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+
+def m_R(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_B(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_Stop():
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(0)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(0)
+
+def main():
+    cam = cv2.VideoCapture(-1)
+    cam.set(3, 640)
+    cam.set(4, 480)
+    
+    filepath = "/home/pi/AIAutomachine/Pic/test"
+    i = 0
+    carState = "stop"
+    
+    while(cam.isOpened()):
+        keyValue = cv2.waitKey(10)
+        #print(str(keyValue))
+        
+        if keyValue == ord('q'):
+           break
+        elif keyValue == 82:
+           print("go")
+           carState = "go"
+           m_G(speedSet)
+        elif keyValue == 84:
+           print("stop")
+           carState = "stop"
+           m_Stop()
+        elif keyValue == 81:
+           print("left")
+           carState = "left"
+           m_L(speedSet)
+        elif keyValue == 83:
+           print("right")
+           carState = "right"
+           m_R(speedSet)
+           
+           
+        _, image = cam.read()
+        image = cv2.flip(image, -1)
+        cv2.imshow('Original', image)
+        
+        height, _, _ = image.shape
+        save_image = image[int(height/2):,:,:]
+        save_image = cv2.cvtColor(save_image, cv2.COLOR_BGR2YUV)
+        save_image = cv2.GaussianBlur(save_image, (3,3), 0)
+        save_image = cv2.resize(save_image, (200, 66))
+        cv2.imshow('Save', save_image)
+        
+        if carState == "left":
+           cv2.imwrite("%s_%05d_%03d.png" % (filepath, i, 45), save_image)
+           i += 1
+        elif carState == "right":
+           cv2.imwrite("%s_%05d_%03d.png" % (filepath, i, 135), save_image)
+           i += 1
+        elif carState == "go":
+           cv2.imwrite("%s_%05d_%03d.png" % (filepath, i, 90), save_image)
+           i += 1
+        
+    cv2.destroyAllWindows()
+    
+if __name__ == '__main__':
+   main()
+   gpio.cleanup()
+</code>
+</pre>
+
+이제 이 코드로 간이로 만든 트랙에서 정방향으로 1~2바퀴,        
+역방향으로 1~2바퀴 조종해서 돌아보자. 조종할때는 차를 위에서 보지 말고, 원격접속하고 있는 컴퓨터에 있는 카메라 화면으로,              
+조종하도록 하자.
+
+
+
+
+
