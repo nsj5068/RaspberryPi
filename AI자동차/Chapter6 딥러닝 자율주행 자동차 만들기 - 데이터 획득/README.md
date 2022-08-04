@@ -617,7 +617,14 @@ if __name__ == '__main__':
 사진이 몇천장 정도 쌓이면 압축을 해서 가져가도록 하자.
 
 본 실험에서는 약 18만장이 쌓였다.                           
-> ![3](https://user-images.githubusercontent.com/64456822/182827075-3b01d7ab-0b0a-452f-a984-0ae19f387c1f.JPG)
+> ![3](https://user-images.githubusercontent.com/64456822/182827075-3b01d7ab-0b0a-452f-a984-0ae19f387c1f.JPG)                    
+> 사진이 너무 많다면 속도를 빠르게 해보자.            
+
+> 속도를 50으로 했을 때는 다음과 같다.                              
+> ![4](https://user-images.githubusercontent.com/64456822/182829515-72f372e3-0929-4349-8d4c-2a525048304c.JPG)
+
+
+
 
 
 
