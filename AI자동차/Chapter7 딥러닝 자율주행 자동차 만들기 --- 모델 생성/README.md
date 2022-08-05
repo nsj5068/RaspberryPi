@@ -33,6 +33,9 @@ import tensorflow.keras 에서 문제가 생기는 데 다음 링크를 타고 �
 
 
 
+실험을 오래 하다보니 [이러한 문제](https://limitsinx.tistory.com/135)가 생겼는 데 찾아보니....                
+기다리거나, 돈을 내서 돌리는 수밖에 없다고 한다....
+
 
 
 
