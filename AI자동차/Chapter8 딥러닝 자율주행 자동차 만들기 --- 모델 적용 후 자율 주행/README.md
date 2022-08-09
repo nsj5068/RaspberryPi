@@ -11,7 +11,28 @@
 
 
 ## 8-1-1.py
+<pre>
+<code>
+import sys
+import tensorflow as tf
+import numpy as np
+import h5py
+import tensorflow.keras as keras
 
+print('tensorflow : ', tf.__version__)
+print('keras : ', keras.__version__)
+print('numpy : ', np.__version__)
+print('h5py : ', h5py.__version__)
+</code>
+</pre>
+
+
+## 8-2-2.py
+<pre>
+<code>
+
+</code>
+</pre>
 
 ### 실패 이후 다시 실험
 
