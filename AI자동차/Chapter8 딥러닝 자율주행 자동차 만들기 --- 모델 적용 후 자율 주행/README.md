@@ -12,8 +12,6 @@
 원인은 학습 데이터 자체의 문제인 것으로 생각된다.                      
 그래서 이번엔 느리게 조종하되 트랙을 좀 더 유연한 트랙으로 바꾸었다. 
 
-> Before                              
-> ![1](https://user-images.githubusercontent.com/64456822/183543277-d2af8ddb-96a9-4e01-acc2-1474f5a80b40.JPG)
-
-> After                        
-> ![2](https://user-images.githubusercontent.com/64456822/183543371-0a73f230-d2f0-4853-a190-51bd31dfa086.JPG)
+|Before|After|
+|------|-----|
+|![1](https://user-images.githubusercontent.com/64456822/183543734-47ba3824-b1db-4e28-b4f2-a5b174808119.JPG)|![2](https://user-images.githubusercontent.com/64456822/183543760-4c20ccad-9d3d-4815-a9ac-74b289d61db6.JPG)|
