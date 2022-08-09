@@ -3,11 +3,12 @@
 먼저 모델 적용하는 법과 주행하는 것을 먼저 설명하겠다.            
 후술하겠지만, 저번 Chapter 7과 조금 내용이 이어진다.
 
-<pre>
-<code>
+먼저 Raspberry Pi에 다음 코드를 실행하여 다운로드를 한다.          
 
-</code>
-</pre>
+<code>pip3 install tensorflow==1.14.0 </code>                
+<code>pip3 install keras==2.2.5 </code>                
+<code>pip3 install h5py==2.10.0 </code>                
+
 
 ## 8-1-1.py
 
