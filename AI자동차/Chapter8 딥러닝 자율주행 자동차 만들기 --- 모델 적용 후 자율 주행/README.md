@@ -103,7 +103,11 @@ if __name__ == '__main__':
 
 
 > 새로 생성한 파일 수                  
-> ![3](https://user-images.githubusercontent.com/64456822/183791316-46f85447-934c-40fb-a1d9-c3f8a54f8ef7.JPG)
+> ![3](https://user-images.githubusercontent.com/64456822/183791316-46f85447-934c-40fb-a1d9-c3f8a54f8ef7.JPG)                    
+> 약 268 MB 이다.            
+
+
+
 
 
 
