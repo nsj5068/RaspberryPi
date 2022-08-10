@@ -11,9 +11,11 @@
 ## 2차 실험 : 실패
 
 > 변경점 :                  
-> 속도를 좀 많이 느리게 하였음.
-> 트랙을 바꾸었음.                    
-> 
+> 속도를 좀 많이 느리게 하였음.                 
+> 트랙을 바꾸었음.                                                 
+|Before|After|
+|------|-----|
+|![1](https://user-images.githubusercontent.com/64456822/183543734-47ba3824-b1db-4e28-b4f2-a5b174808119.JPG)|![2](https://user-images.githubusercontent.com/64456822/183543760-4c20ccad-9d3d-4815-a9ac-74b289d61db6.JPG)|          
 
 > 원인 :                  
 > 데이터가 어느 한쪽으로 크게 몰려있음.            
