@@ -1,6 +1,6 @@
 # Chapter 8 딥러닝 자율주행 자동차 만들기 --- 모델 적용 후 자율 주행
 
-### 본인의 실험 기록은 이 [링크]()를 타고 열람 바람.
+### 본인의 실험 기록은 이 [링크](https://github.com/nsj5068/RaspberryPi/tree/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/%EC%8B%A4%ED%97%98%EA%B8%B0%EB%A1%9D#%EC%8B%A4%ED%97%98-%EA%B8%B0%EB%A1%9D)를 타고 열람 바람.
 
 
 먼저 Raspberry Pi에 다음 코드를 실행하여 다운로드를 한다.          
@@ -85,27 +85,13 @@ if __name__ == '__main__':
 </pre>
 
 
-### 실패
-
-위의 코드를 가지고 실험한 결과, Right라고 판단한 부분이 더 많았다. 이 뒤에 올 코드로 실제 실험도 했으나, 결과는 똑같았다.                       
-그러므로, 다음 코드를 가져와 설명하는 것이 아닌 다시 실험을 시작하여, 그 결과를 서술하겠다.             
+## 8-2-3.py
 
 
 
-### 실패 이후 다시 실험
-         
-원인은 학습 데이터 자체의 문제인 것으로 생각된다.                      
-그래서 이번엔 느리게 조종하되 트랙을 좀 더 유연한 트랙으로 바꾸었다. 
-
-|Before|After|
-|------|-----|
-|![1](https://user-images.githubusercontent.com/64456822/183543734-47ba3824-b1db-4e28-b4f2-a5b174808119.JPG)|![2](https://user-images.githubusercontent.com/64456822/183543760-4c20ccad-9d3d-4815-a9ac-74b289d61db6.JPG)|          
 
 
-> 새로 생성한 파일 수                  
-> ![3](https://user-images.githubusercontent.com/64456822/183791316-46f85447-934c-40fb-a1d9-c3f8a54f8ef7.JPG)                    
-> 약 262 MB 이다.            
-
+   
 
 
 
