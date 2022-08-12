@@ -33,9 +33,20 @@
 > 변경점 :                    
 > 속도를 각각 Pic1 : 30, Pic2 : 40, Pic3 : 50 으로 설정해놓음.                         
 
-> Pic1                 
+> Pic1                       
+> ![301](https://user-images.githubusercontent.com/64456822/184310410-7bbb49f8-05dc-48be-a640-b87b00ce749e.JPG)                           
+> ![302](https://user-images.githubusercontent.com/64456822/184310448-249c4ce9-e985-45d3-853e-f33301da6821.JPG) 
+
+                             
+> Pic1을 3번 더 돌렸을 때                                       
+> ![303](https://user-images.githubusercontent.com/64456822/184310524-8fdbb071-c12e-44ca-b709-281025dd98e2.JPG)                    
+> ![304](https://user-images.githubusercontent.com/64456822/184310558-5f031db6-7cfe-4e44-abb8-f3ebeb921fbe.JPG)                
+
 
 > Pic2                
+> ![401](https://user-images.githubusercontent.com/64456822/184310604-f6e874a4-bba7-4bef-8d47-e6b270e32bcb.JPG)                
+> ![402](https://user-images.githubusercontent.com/64456822/184310641-ad86c554-8507-42d6-b5d2-7f87b7096912.JPG)           
+
 
 > Pic3                
 
