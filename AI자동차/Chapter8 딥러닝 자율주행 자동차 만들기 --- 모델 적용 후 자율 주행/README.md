@@ -159,7 +159,147 @@ if __name__ == '__main__':
 이것까지만 하면 실질적 Test는 다 끝났다.           
 다음은 실제 AI 주행을 해보는 거다.           
 
-##
+
+
+## 8-4-1.py
+<pre>
+<code>
+import cv2
+import tensorflow as tf
+import h5py
+import numpy as np
+from tensorflow.keras.models import load_model
+import RPi.GPIO as gpio
+
+PWMA = 18
+AIN1 = 22 #A Channel IN
+AIN2 = 27 
+
+PWMB = 23
+BIN1 = 25 #B Channel IN
+BIN2 = 24 
+
+gpio.setwarnings(False)
+gpio.setmode(gpio.BCM)
+
+gpio.setup(PWMA, gpio.OUT)
+gpio.setup(AIN1, gpio.OUT)
+gpio.setup(AIN2, gpio.OUT)
+
+gpio.setup(PWMB, gpio.OUT)
+gpio.setup(BIN1, gpio.OUT)
+gpio.setup(BIN2, gpio.OUT)
+
+L_M = gpio.PWM(PWMA, 500)
+L_M.start(0)
+R_M = gpio.PWM(PWMB, 500)
+R_M.start(0)
+
+speedSet = 20
+
+def m_G(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_L(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(speed)
+
+def m_R(speed):
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_B(speed):
+    gpio.output(AIN1, 1)
+    gpio.output(AIN2, 0)
+    L_M.ChangeDutyCycle(speed)
+    gpio.output(BIN1, 1)
+    gpio.output(BIN2, 0)
+    R_M.ChangeDutyCycle(speed)
+    
+def m_Stop():
+    gpio.output(AIN1, 0)
+    gpio.output(AIN2, 1)
+    L_M.ChangeDutyCycle(0)
+    gpio.output(BIN1, 0)
+    gpio.output(BIN2, 1)
+    R_M.ChangeDutyCycle(0)
+
+def img_preprocess(image):
+    height, _, _= image.shape
+    image = image[int(height/2):,:,:]
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
+    image = cv2.GaussianBlur(image, (3,3), 0)
+    image = cv2.resize(image, (200, 66))
+    image = image / 255
+    return image
+    
+def main():
+    cam = cv2.VideoCapture(-1)
+    cam.set(3, 640)
+    cam.set(4, 480)
+    model_path = "/home/pi/AIAutomachine/lane_navogation_final1.h5"
+    model = load_model(model_path)
+    
+    carState = "stop"
+    
+    while(cam.isOpened()):
+        keyValue = cv2.waitKey(1)
+        
+        if keyValue == ord('q'):
+           break
+        elif keyValue == 82:
+           print("go")
+           carState = "go"
+        elif keyValue == 84:
+           print("stop")
+           carState = "stop"
+           
+        _, image = cam.read()
+        image = cv2.flip(image, -1)
+        cv2.imshow('Original', image)
+        
+        preprocessed = img_preprocess(image)
+        cv2.imshow('pre', preprocessed)
+        
+        X = np.asarray([preprocessed])
+        steering_angle = int(model.predict(X)[0])
+        print("predict angle : ", steering_angle)
+        
+        if carState == "go":
+           if steering_angle >= 85 and steering_angle <= 95:
+              print('go')
+              m_G(speedSet)
+           elif steering_angle > 96 :
+              print('right')
+              m_R(speedSet)
+           elif steering_angle < 84 :
+              print('left')
+              m_L(speedSet)
+        elif carState == "stop":
+           m_Stop()
+        
+    cv2.destroyAllWindows()
+    
+    
+if __name__ == '__main__':
+   main()
+   gpio.cleanup()
+</code>
+</pre>
+
 
 
    
