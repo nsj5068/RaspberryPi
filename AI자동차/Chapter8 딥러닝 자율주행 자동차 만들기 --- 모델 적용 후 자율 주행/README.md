@@ -301,9 +301,13 @@ if __name__ == '__main__':
 </pre>
 
 > 결과화면                    
-> 
+> https://user-images.githubusercontent.com/64456822/184817136-28ad3c72-e784-4153-b4b6-6131719759df.mp4                   
 
-실제로 주행하였을 시, [실험기록](https://github.com/nsj5068/RaspberryPi/tree/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/%EC%8B%A4%ED%97%98%EA%B8%B0%EB%A1%9D#3%EC%B0%A8-%EC%8B%A4%ED%97%98--ing)에서 2개의 케이스를 가지고 실험하였는 데, 그래프와 확률상으로도 유의미한 결과를 보여주었던 Case1과 Case2가             
+
+
+
+실제로 주행하였을 시, [실험기록](https://github.com/nsj5068/RaspberryPi/tree/master/AI%EC%9E%90%EB%8F%99%EC%B0%A8/%EC%8B%A4%ED%97%98%EA%B8%B0%EB%A1%9D#3%EC%B0%A8-%EC%8B%A4%ED%97%98--ing)에서 2개의 케이스를 가지고 실험하였는 데,                    
+그래프와 확률상으로도 유의미한 결과를 보여주었던 Case1과 Case2가                                 
 서로 상반된 결과가 나왔다.           
 
 Case1이 가장 좋은 결과를 보여주었으며, 이로써 가장 적당히 늦은 속도가 가장 안정적인 결과를 도출하는 것을 알 수 있었다.
