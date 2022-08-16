@@ -49,6 +49,10 @@
 
 
 > Pic3                
+> ![501](https://user-images.githubusercontent.com/64456822/184802934-6fff11b0-0f83-4d73-b3cf-3b6b90f583b6.JPG)                     
+> 이런식으로 튄다. 
+
+
 
 
 Pic1과 Pic2는 유의미한 결과가 나왔는 데,           
