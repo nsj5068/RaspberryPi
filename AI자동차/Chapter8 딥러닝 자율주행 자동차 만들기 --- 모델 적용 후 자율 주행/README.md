@@ -301,8 +301,7 @@ if __name__ == '__main__':
 </pre>
 
 > 결과화면                    
-> <iframe id='video' width='50' height='50' src='https://user-images.githubusercontent.com/64456822/184817136-28ad3c72-e784-4153-b4b6-6131719759df.mp4' frameborder="0"></iframe>
-https://user-images.githubusercontent.com/64456822/184817136-28ad3c72-e784-4153-b4b6-6131719759df.mp4                   
+> <iframe id='video' width='50' height='50' src='https://user-images.githubusercontent.com/64456822/184817136-28ad3c72-e784-4153-b4b6-6131719759df.mp4' frameborder="0"></iframe>             
 
 
 
