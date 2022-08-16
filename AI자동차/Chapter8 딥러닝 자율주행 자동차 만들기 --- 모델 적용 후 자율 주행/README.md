@@ -82,24 +82,84 @@ if __name__ == '__main__':
    main()
    gpio.cleanup()
 </code>
+</pre>                       
+
+
+이제 트랙에서 왔다갔다를 손으로 옮겨가며 Angle과, 방향이 정확한지 확인을 해보자.  
+
+
+
+## 8-3-1.py
+<pre>
+<code>
+import cv2
+import tensorflow as tf
+import h5py
+import numpy as np
+from tensorflow.keras.models import load_model
+import RPi.GPIO as gpio
+
+def img_preprocess(image):
+    height, _, _= image.shape
+    image = image[int(height/2):,:,:]
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
+    image = cv2.GaussianBlur(image, (3,3), 0)
+    image = cv2.resize(image, (200, 66))
+    image = image / 255
+    return image
+    
+def main():
+    cam = cv2.VideoCapture(-1)
+    cam.set(3, 640)
+    cam.set(4, 480)
+    model_path = "/home/pi/AIAutomachine/lane_navogation_final2.h5"
+    model = load_model(model_path)
+    
+    carState = "stop"
+    
+    while(cam.isOpened()):
+        keyValue = cv2.waitKey(1)
+        
+        if keyValue == ord('q'):
+           break
+           
+        _, image = cam.read()
+        image = cv2.flip(image, -1)
+        cv2.imshow('Original', image)
+        
+        preprocessed = img_preprocess(image)
+        cv2.imshow('pre', preprocessed)
+        
+        X = np.asarray([preprocessed])
+        steering_angle = int(model.predict(X)[0])
+        print("predict angle : ", steering_angle)
+        
+        if steering_angle >= 85 and steering_angle <= 95:
+           print('go')
+        elif steering_angle > 96 :
+           print('right')
+        elif steering_angle < 84 :
+           print('left')
+        
+    cv2.destroyAllWindows()
+    
+    
+if __name__ == '__main__':
+   main()
+   gpio.cleanup()
+</code>
 </pre>
 
+> 결과화면               
+> ![1](https://user-images.githubusercontent.com/64456822/184805929-6e1d6022-bdcb-4e6c-beaf-dc2193980bf7.JPG)                       
+> ![2](https://user-images.githubusercontent.com/64456822/184805953-6c6590a8-3273-4548-a2fc-e4225eac23fb.JPG)                      
+> ![3](https://user-images.githubusercontent.com/64456822/184805974-92de8d93-22db-45e8-b14c-744705801250.JPG)                
 
 
-이제 트랙에서 왔다갔다를 손으로 옮겨가며 Angle과, 방향이 정확한지 확인을 해보자.           
+이것까지만 하면 실질적 Test는 다 끝났다.           
+다음은 실제 AI 주행을 해보는 거다.           
 
-
-
-> 결과화면                   
-
-
-
-
-
-## 8-2-3.py
-
-
-
+##
 
 
    
